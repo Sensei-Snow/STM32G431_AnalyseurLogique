@@ -12,7 +12,6 @@
 #ifndef CONFIG_H_
 #define CONFIG_H_
 
-//commentairessssssssssssssssssssssssssssssss
 /* Includes ------------------------------------------------------------------*/
 #include "stm32g4xx_hal.h"
 
