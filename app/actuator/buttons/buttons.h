@@ -11,11 +11,16 @@
 
 #pragma once
 
+
+/* ******************************************************* Includes ****************************************************** */
 #include <stdint.h>
 
 #include "stm32g4_utils.h"
 #include "stm32g4xx_hal.h"
 
+/* ***************************************************** Public macros *************************************************** */
+
+/* ************************************************** Public types definition ******************************************** */
 typedef enum
 {
 	BUTTON_NO_EVENT,
@@ -23,6 +28,7 @@ typedef enum
 	BUTTON_RELEASE_EVENT
 }button_e;
 
+/* *********************************************** Public functions declarations ***************************************** */
 void BUTTONS_init(void);
 bool BUTTON_startstop_read(void);
 void BUTTONS_update(button_e * button_startstop_event);
