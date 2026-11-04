@@ -4,13 +4,12 @@
  * @author 				jjo
  * @creation_date 		29/03/2024
  * @brief				Fichier principal de configuration de notre projet sur carte Nucléo STM32G431KB.
- * 						Permet d'activer les différents modules logiciels à votre disposition.
+ * 						Permet d'activer les différents modules logiciels à disposition.
  *******************************************************************************
 */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
-#ifndef CONFIG_H_
-#define CONFIG_H_
+#pragma once
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32g4xx_hal.h"
@@ -102,6 +101,3 @@
 #endif
 
 #define USE_TESTBOARD				0
-
-
-#endif /* CONFIG_H_ */
