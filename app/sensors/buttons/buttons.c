@@ -10,6 +10,8 @@
 */
 
 /* ******************************************************* Includes ****************************************************** */
+#include <stdbool.h>
+
 #include "stm32g4xx_hal.h"
 #include "stm32g4_systick.h"
 #include "stm32g4_gpio.h"
