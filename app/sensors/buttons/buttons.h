@@ -32,6 +32,7 @@ typedef enum
 /* *********************************************** Public functions declarations ***************************************** */
 /**
  * @brief		Initialisation des boutons au niveau des GPIO
+ * @return		STATE_OK si l'initialisation s'est bien déroulée et STATE_WARNING si la fonction de callback n'a pas pu être ajoutée
  */
 Execution_State BUTTONS_init(void);
 
