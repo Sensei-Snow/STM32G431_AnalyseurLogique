@@ -1,10 +1,10 @@
 /**
  *******************************************************************************
- * @file 				TFTILI9341_driver_v2.c
+ * @file 				TFTILI9341_driver_v2.h
  * @author 				Arthur Retaillaud
  * @creation_date 		11/11/2026
  * @update_date			11/11/2026
- * @see					TFTILI9341_driver_v2.h
+ * @see					TFTILI9341_driver_v2.c
  * @brief				Fichier d'en-tête pour la version 2 du driver fourni par l'ESEO pour l'écran TFTILI9341 car il est pété (oui oui le driver).
  *******************************************************************************
 */
