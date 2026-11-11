@@ -16,6 +16,7 @@
 #include "stm32g4_gpio.h"
 #include "stm32g4_systick.h"
 #include "buttons.h"
+#include "utils.h"
 
 /* **************************************************** Private macros *************************************************** */
 #define GPIO_BUTTON_STARTSTOP GPIOB
@@ -37,10 +38,10 @@ void BUTTONS_process_ms(void)
 }
 
 /* ********************************************** Public functions definitions ******************************************* */
-void BUTTONS_init(void)
+Execution_State BUTTONS_init(void)
 {
 	BSP_GPIO_pin_config(GPIO_BUTTON_STARTSTOP, PIN_BUTTON_STARTSTOP, GPIO_MODE_INPUT, GPIO_PULLUP, GPIO_SPEED_FREQ_HIGH, GPIO_NO_AF);
-	BSP_systick_add_callback_function(&BUTTONS_process_ms);
+	return (BSP_systick_add_callback_function(&BUTTONS_process_ms)) ? STATE_OK : STATE_WARNING;
 }
 
 bool BUTTON_startstop_read(void)

@@ -33,7 +33,7 @@ typedef enum
 /**
  * @brief		Initialisation des boutons au niveau des GPIO
  */
-void BUTTONS_init(void);
+Execution_State BUTTONS_init(void);
 
 /**
  * @brief		Lecture de la pression sur un bouton

@@ -16,6 +16,7 @@
 #include "stm32g4_uart.h"
 #include "stm32g4_sys.h"
 #include "config.h"
+#include "utils.h"
 
 /* **************************************************** Private macros *************************************************** */
 
@@ -26,7 +27,7 @@
 /* ************************************************** Private variables ************************************************** */
 
 /* ********************************************** Private functions definitions ****************************************** */
-int main(void)
+Execution_State main(void)
 {
 	//-- Initializations -----------------------------------
 	HAL_Init();
@@ -38,7 +39,7 @@ int main(void)
 		//TODO
 	}
 
-	return 0;
+	return STATE_OK;
 }
 
 /* ********************************************** Public functions definitions ******************************************* */
