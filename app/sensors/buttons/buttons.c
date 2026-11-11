@@ -16,7 +16,7 @@
 #include "stm32g4_gpio.h"
 #include "stm32g4_systick.h"
 #include "buttons.h"
-#include "utils.h"
+#include "../../utils/utils.h"
 
 /* **************************************************** Private macros *************************************************** */
 #define GPIO_BUTTON_STARTSTOP GPIOB
