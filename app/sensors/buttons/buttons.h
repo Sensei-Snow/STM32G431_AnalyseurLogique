@@ -3,7 +3,7 @@
  * @file 				buttons.h
  * @author 				Arthur Retaillaud
  * @creation_date 		04/11/2026
- * @update_date			04/11/2026
+ * @update_date			11/11/2026
  * @see					buttons.c
  * @brief				Fichier d'en-tête pour l'implémentation des fonctionnalités liées aux boutons poussoirs.
  *******************************************************************************

@@ -13,7 +13,6 @@
 #include "stm32g4xx_hal.h"
 #include "TFT_ili9341/stm32g4_ili9341.h"
 #include "TFT_ili9341/stm32g4_fonts.h"
-#include "stm32g4_systick.h"
 #include "display.h"
 
 /* **************************************************** Private macros *************************************************** */
@@ -27,7 +26,8 @@
 /* ********************************************** Private functions definitions ****************************************** */
 
 /* ********************************************** Public functions definitions ******************************************* */
-void DISPLAY_init(void) {
+void DISPLAY_init(void)
+{
 	ILI9341_Init();
 	ILI9341_Fill(ILI9341_COLOR_WHITE);
 	ILI9341_Rotate(ILI9341_Orientation_Landscape_2);

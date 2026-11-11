@@ -14,9 +14,6 @@
 #include "stm32g4xx_hal.h"
 
 /* ***************************************************** Public macros *************************************************** */
-#define LED_GREEN_PIN 		GPIO_PIN_8
-#define LED_GREEN_GPIO 		GPIOB
-
 #define UART2_ON_PA3_PA2
 #define UART1_ON_PA10_PA9
 

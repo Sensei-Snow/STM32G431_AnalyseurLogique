@@ -3,7 +3,7 @@
  * @file 				buttons.c
  * @author 				Arthur Retaillaud
  * @creation_date 		04/11/2026
- * @update_date			04/11/2026
+ * @update_date			11/11/2026
  * @see					buttons.h
  * @brief				Implémentation des fonctionnalités liées aux boutons poussoirs.
  *******************************************************************************
@@ -13,8 +13,8 @@
 #include <stdbool.h>
 
 #include "stm32g4xx_hal.h"
-#include "stm32g4_systick.h"
 #include "stm32g4_gpio.h"
+#include "stm32g4_systick.h"
 #include "buttons.h"
 
 /* **************************************************** Private macros *************************************************** */
@@ -57,7 +57,7 @@ void BUTTONS_update(button_e * button_startstop_event)
 	if(!t)
 	{
 		t = 10;
-		bool current_button_startstop = 	!HAL_GPIO_ReadPin(GPIO_BUTTON_STARTSTOP, 	PIN_BUTTON_STARTSTOP);
+		bool current_button_startstop = 	!HAL_GPIO_ReadPin(GPIO_BUTTON_STARTSTOP, PIN_BUTTON_STARTSTOP);
 
 		if (current_button_startstop != previous_button_startstop) {
 			*button_startstop_event = current_button_startstop ? BUTTON_PRESS_EVENT : BUTTON_RELEASE_EVENT;

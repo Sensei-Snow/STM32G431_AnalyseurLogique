@@ -10,8 +10,11 @@
 
 /* ******************************************************* Includes ****************************************************** */
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "stm32g4_gpio.h"
+#include "stm32g4_uart.h"
+#include "stm32g4_sys.h"
 #include "config.h"
 
 /* **************************************************** Private macros *************************************************** */
@@ -28,6 +31,8 @@ int main(void)
 	//-- Initializations -----------------------------------
 	HAL_Init();
 	BSP_GPIO_enable();
+	BSP_UART_init(UART2_ID,115200);
+	BSP_SYS_set_std_usart(UART2_ID, UART2_ID, UART2_ID);
 
 	while(true) {
 		//TODO
