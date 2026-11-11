@@ -28,7 +28,7 @@ void INTERNAL_LED_init(void);
 
 /**
  * @brief		Gestion de l'allumage de la LED interne de la carte Nucléo
- * @param		true pour allumer la LED et false pour l'éteindre
+ * @param		state : true pour allumer la LED et false pour l'éteindre
  */
 void INTERNAL_LED_set(bool state);
 
