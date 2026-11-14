@@ -31,7 +31,7 @@
 /* ************************************************** Private variables ************************************************** */
 
 /* ********************************************** Private functions definitions ****************************************** */
-Execution_State main(void)
+int main(void)
 {
 	//-- Initializations -----------------------------------
 	HAL_Init();
@@ -56,11 +56,12 @@ Execution_State main(void)
 		RTC_Init_SetDateTime(time, date);
 	#endif
 
+	//-- Execution -----------------------------------
 	while(true) {
 		//TODO
 	}
 
-	return STATE_OK;
+	return 0;
 }
 
 /* ********************************************** Public functions definitions ******************************************* */
