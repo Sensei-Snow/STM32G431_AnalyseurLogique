@@ -3,7 +3,7 @@
  * @file 				main.c
  * @author 				Arthur Retaillaud
  * @creation_date 		18/10/2026
- * @update_date			11/11/2026
+ * @update_date			14/11/2026
  * @brief				Fichier principal de code de notre projet sur carte Nucléo STM32G431KB.
  *******************************************************************************
 */

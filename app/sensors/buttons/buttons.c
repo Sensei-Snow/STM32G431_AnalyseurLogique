@@ -49,7 +49,7 @@ bool BUTTON_startstop_read(void)
 	return !HAL_GPIO_ReadPin(GPIO_BUTTON_STARTSTOP, PIN_BUTTON_STARTSTOP);
 }
 
-void BUTTONS_update(button_e * button_startstop_event)
+void BUTTONS_update(button_e *button_startstop_event)
 {
 	static bool previous_button_startstop = false;
 

@@ -3,7 +3,7 @@
  * @file 				logs.c
  * @author 				Arthur Retaillaud
  * @creation_date 		11/11/2026
- * @update_date			13/11/2026
+ * @update_date			14/11/2026
  * @see					logs.h
  * @brief				Implémentation des fonctionnalités liées aux logs.
  *******************************************************************************
@@ -73,17 +73,17 @@ char* GetTime(void)
 }
 
 /* ********************************************** Public functions definitions ******************************************* */
-void LOGS_info(const char *message)
+void LOGS_info(const char *module, const char *message)
 {
-	printf("[INFO] -- %s -- %s -- %s", GetTime(), GetUptime(), message);
+	printf("[INFO] [%s] -- %s -- %s -- %s", module, GetTime(), GetUptime(), message);
 }
 
-void LOGS_warning(const char *message)
+void LOGS_warning(const char *module, const char *message)
 {
-	printf("[WARNING] -- %s -- %s -- %s", GetTime(), GetUptime(), message);
+	printf("[WARNING] [%s] -- %s -- %s -- %s", module, GetTime(), GetUptime(), message);
 }
 
-void LOGS_error(const char *message)
+void LOGS_error(const char *module, const char *message)
 {
-	printf("[ERROR] -- %s -- %s -- %s", GetTime(), GetUptime(), message);
+	printf("[ERROR] [%s] -- %s -- %s -- %s", module, GetTime(), GetUptime(), message);
 }

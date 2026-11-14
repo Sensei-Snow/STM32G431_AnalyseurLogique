@@ -47,4 +47,4 @@ bool BUTTON_startstop_read(void);
  * @brief		Lecture de l'état d'un bouton
  * @param		button_startstop_event : Pointeur vers la variable qui contient l'état du bouton
  */
-void BUTTONS_update(button_e * button_startstop_event);
+void BUTTONS_update(button_e *button_startstop_event);
