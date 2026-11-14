@@ -14,6 +14,7 @@
 #include <stdint.h>
 
 #include "stm32g4xx_hal.h"
+#include "stm32g4_rtc.h"
 
 /* **************************************************** Private macros *************************************************** */
 
@@ -26,12 +27,18 @@
  */
 char* GetUptime(void);
 
+/**
+ * @brief		Permet d'obtenir l'heure
+ * @return		Retourne une chaîne de caractère sous la forme "[Heures:Minutes:Secondes]"
+ */
+char* GetTime(void);
+
 /* ************************************************** Private variables ************************************************** */
 
 /* ********************************************** Private functions definitions ****************************************** */
 char* GetUptime(void)
 {
-    static char buffer[16];
+    static char uptime_str[16];
 
     uint32_t uptime = HAL_GetTick() / 1000;
 
@@ -39,26 +46,44 @@ char* GetUptime(void)
     uint32_t minutes = (uptime % 3600) / 60;
     uint32_t seconds = uptime % 60;
 
-    snprintf(buffer, sizeof(buffer), "[%02u:%02u:%02u]",
+    snprintf(uptime_str, sizeof(uptime_str), "[%02u:%02u:%02u]",
              (unsigned int)hours,
              (unsigned int)minutes,
              (unsigned int)seconds);
 
-    return buffer;
+    return uptime_str;
+}
+
+char* GetTime(void)
+{
+    static char time_str[16];
+
+    RTC_TimeTypeDef time;
+    RTC_DateTypeDef date;
+
+    BSP_RTC_get_time_and_date(&time, &date);
+
+    snprintf(time_str, sizeof(time_str),
+             "[%02u:%02u:%02u]",
+			 (unsigned int)time.Hours,
+			 (unsigned int)time.Minutes,
+			 (unsigned int)time.Seconds);
+
+    return time_str;
 }
 
 /* ********************************************** Public functions definitions ******************************************* */
 void LOGS_info(const char *message)
 {
-	printf("[INFO] -- %s -- %s", GetUptime(), message);
+	printf("[INFO] -- %s -- %s -- %s", GetTime(), GetUptime(), message);
 }
 
 void LOGS_warning(const char *message)
 {
-	printf("[WARNING] -- %s -- %s", GetUptime(), message);
+	printf("[WARNING] -- %s -- %s -- %s", GetTime(), GetUptime(), message);
 }
 
 void LOGS_error(const char *message)
 {
-	printf("[ERROR] -- %s -- %s", GetUptime(), message);
+	printf("[ERROR] -- %s -- %s -- %s", GetTime(), GetUptime(), message);
 }
