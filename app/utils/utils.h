@@ -16,8 +16,8 @@
 
 /* ************************************************** Public types definition ******************************************** */
 typedef enum {
-	STATE_PROGRESS,
 	STATE_OK,
+	STATE_PROGRESS,
 	STATE_WARNING,
 	STATE_ERROR,
 }Execution_State;
