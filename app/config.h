@@ -20,7 +20,7 @@
 #define USE_BSP_TIMER		1
 #define USE_BSP_EXTIT		1
 
-#define USE_RTC				0
+#define USE_RTC				1
 
 #define USE_ADC				0
 	/* Configuration pour activer les entrées analogiques souhaitées */

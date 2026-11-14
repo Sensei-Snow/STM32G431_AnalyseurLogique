@@ -3,7 +3,7 @@
  * @file 				logs.c
  * @author 				Arthur Retaillaud
  * @creation_date 		11/11/2026
- * @update_date			11/11/2026
+ * @update_date			13/11/2026
  * @see					logs.h
  * @brief				Implémentation des fonctionnalités liées aux logs.
  *******************************************************************************
