@@ -11,8 +11,8 @@
 
 /* ******************************************************* Includes ****************************************************** */
 #include "stm32g4xx_hal.h"
-#include "TFT_ili9341/stm32g4_ili9341.h"
-#include "TFT_ili9341/stm32g4_fonts.h"
+#include "tft_ili9341/stm32g4_ili9341.h"
+#include "tft_ili9341/stm32g4_fonts.h"
 #include "display.h"
 #include "../utils/logs/logs.h"
 

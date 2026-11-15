@@ -3,31 +3,31 @@
  * @file	stm32g4_ld19_display.c
  * @author	vchav
  * @date	Jun 14, 2024
- * @brief	Module pour afficher les trames reçus du capteur lidar ld19
+ * @brief	Module pour afficher les trames reï¿½us du capteur lidar ld19
  *******************************************************************************
- * @note 	Ce module propose une méthode pour filtrer et afficher les points détectés et récupérés dans le module stm32g4_ld19.c/.h.
- *          Cette méthode a été choisie car elle est efficace en temps de calcule et elle s'adapte facilement à un maximum de situations.
- *          Toutefois, en fonction de vos besoins, vous pourrez juger que cette méthode n'est pas assez efficace.
- *          Ce qu'il faut retenir de cette méthode, c'est que vous devez
- *          adapter la valeur de BUFFER_DISPLAY_SIZE en fonction de la quantité de choses que devrait capter
- *          le lidar dans la zone que vous aurez définie avec ANGLE_MAX, ANGLE_MIN et SCALE.
- *          Plus BUFFER_DISPLAY_SIZE est bien calibré, plus l'affichage et l'évolution seront fluides.
+ * @note 	Ce module propose une mï¿½thode pour filtrer et afficher les points dï¿½tectï¿½s et rï¿½cupï¿½rï¿½s dans le module stm32g4_ld19.c/.h.
+ *          Cette mï¿½thode a ï¿½tï¿½ choisie car elle est efficace en temps de calcule et elle s'adapte facilement ï¿½ un maximum de situations.
+ *          Toutefois, en fonction de vos besoins, vous pourrez juger que cette mï¿½thode n'est pas assez efficace.
+ *          Ce qu'il faut retenir de cette mï¿½thode, c'est que vous devez
+ *          adapter la valeur de BUFFER_DISPLAY_SIZE en fonction de la quantitï¿½ de choses que devrait capter
+ *          le lidar dans la zone que vous aurez dï¿½finie avec ANGLE_MAX, ANGLE_MIN et SCALE.
+ *          Plus BUFFER_DISPLAY_SIZE est bien calibrï¿½, plus l'affichage et l'ï¿½volution seront fluides.
  */
 
 #include "config.h"
 #if USE_LD19
 #include "stm32g4_ld19_display.h"
 #include "stm32g4_ld19.h"
-#include "TFT_ili9341/stm32g4_ili9341.h"
-#include "TFT_ili9341/stm32g4_fonts.h"
-#include "TFT_ili9341/stm32g4_xpt2046.h"
+#include "tft_ili9341/stm32g4_ili9341.h"
+#include "tft_ili9341/stm32g4_fonts.h"
+#include "tft_ili9341/stm32g4_xpt2046.h"
 #include "QS_maths.h"
 #include "stdio.h"
 
 #define DISPLAY_SIZE			15 		// 150 pixels
 #define SCALE					5 		// m
-#define ANGLE_MAX				18000 	// 180 °
-#define ANGLE_MIN				0		// 0 °
+#define ANGLE_MAX				18000 	// 180 ï¿½
+#define ANGLE_MIN				0		// 0 ï¿½
 #define BUFFER_DISPLAY_SIZE 	450		// 450 points
 
 typedef struct{
@@ -58,7 +58,7 @@ void BSP_LD19_display_on_tft(ld19_frame_handler_t *frame){
 
 	static uint16_t i = 0; //compteur pour affichage des constantes
 	static uint16_t j = 0; //compteur pour le remplissage du buffer_displayed
-	static uint16_t k = 0; //compteur pour la détection du tactile
+	static uint16_t k = 0; //compteur pour la dï¿½tection du tactile
 	static bool duplicate_point = false;
 
 	float angle_step = (frame->end_angle - frame->start_angle)/(POINT_PER_PACK-1);
@@ -73,9 +73,9 @@ void BSP_LD19_display_on_tft(ld19_frame_handler_t *frame){
 		{
 			coord = LD19_find_coordinate(frame->point[i].distance, (frame->start_angle + (i+1)*angle_step));
 
-			if(coord.x < 320 && coord.x > 0 && coord.y < 240 && coord.y > 0){ //On s'assure que les coordonnées rentrent dans l'écran
+			if(coord.x < 320 && coord.x > 0 && coord.y < 240 && coord.y > 0){ //On s'assure que les coordonnï¿½es rentrent dans l'ï¿½cran
 				for(int i = 0; i<BUFFER_DISPLAY_SIZE; i++){
-					if(coord.x == buffer_displayed[i].x && coord.y == buffer_displayed[i].y){ //On regarde si le point existe déjà
+					if(coord.x == buffer_displayed[i].x && coord.y == buffer_displayed[i].y){ //On regarde si le point existe dï¿½jï¿½
 						duplicate_point = true;
 					}
 				}
@@ -96,17 +96,17 @@ void BSP_LD19_display_on_tft(ld19_frame_handler_t *frame){
 	//Affichage des constantes tous les 50 trames
 	i = (i+1)%50;
 	if(i==1){
-		char speedtxt[15]; // 15 comme ça on est large
-		char scaletxt[20]; // 20 comme ça on est large
-		// Convertir entier en chaîne de caractères
+		char speedtxt[15]; // 15 comme ï¿½a on est large
+		char scaletxt[20]; // 20 comme ï¿½a on est large
+		// Convertir entier en chaï¿½ne de caractï¿½res
 		sprintf(speedtxt, "%d degrees/sec", frame->speed);
 		sprintf(scaletxt, "150 pixels = %dm", scale);
 		ILI9341_Puts(125, 200, speedtxt, &Font_7x10, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
 		ILI9341_Puts(125, 220, scaletxt, &Font_7x10, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
 	}
 
-	//Changement d'échelle si appuie
-	k = (k+1)%10; // Afin d'éviter les changements d'échelle trop rapide
+	//Changement d'ï¿½chelle si appuie
+	k = (k+1)%10; // Afin d'ï¿½viter les changements d'ï¿½chelle trop rapide
 	int16_t x, y;
 	if(!HAL_GPIO_ReadPin(PIN_IRQ_TOUCH) && k==1){
 		XPT2046_getMedianCoordinates(&x, &y, XPT2046_COORDINATE_SCREEN_RELATIVE);
@@ -119,7 +119,7 @@ void BSP_LD19_display_on_tft(ld19_frame_handler_t *frame){
 	}
 
 	/*
-	printf("\nAprès le filtre: \n");
+	printf("\nAprï¿½s le filtre: \n");
 	for (int i = 0; i < POINT_PER_PACK; i++) {
 		if(tab_of_point_filtered_2[i].distance)
 			printf("Point %d: Distance = %d, Angle = %d\n", i, tab_of_point_filtered_2[i].distance, tab_of_point_filtered_2[i].angle);
@@ -133,9 +133,9 @@ void LD19_init_buffer_displayed(void){
 }
 
 /**
- * @brief Fonction qui filtre les points en fonction de l'échelle (scale) définie.
- * @param tab_of_point: tableau des points à filtrer
- * @param tab_of_point_filtered: tableau qui va contenir les points après le filtre
+ * @brief Fonction qui filtre les points en fonction de l'ï¿½chelle (scale) dï¿½finie.
+ * @param tab_of_point: tableau des points ï¿½ filtrer
+ * @param tab_of_point_filtered: tableau qui va contenir les points aprï¿½s le filtre
  */
 void LD19_filter_trame_by_length(point_t *tab_of_point, point_t *tab_of_point_filtered){
 	uint8_t j = 0;
@@ -148,9 +148,9 @@ void LD19_filter_trame_by_length(point_t *tab_of_point, point_t *tab_of_point_fi
 }
 
 /**
- * @brief Fonction qui filtre les points en fonction de la fourchette d'angle définie par ANGLE_MAX et ANGLE_MIN.
- * @param tab_of_point: tableau des points à filtrer
- * @param tab_of_point_filtered: tableau qui va contenir les points après le filtre
+ * @brief Fonction qui filtre les points en fonction de la fourchette d'angle dï¿½finie par ANGLE_MAX et ANGLE_MIN.
+ * @param tab_of_point: tableau des points ï¿½ filtrer
+ * @param tab_of_point_filtered: tableau qui va contenir les points aprï¿½s le filtre
  */
 void LD19_filter_trame_by_angle(point_t *tab_of_point, point_t *tab_of_point_filtered){
 	uint8_t j = 0;
@@ -163,10 +163,10 @@ void LD19_filter_trame_by_angle(point_t *tab_of_point, point_t *tab_of_point_fil
 }
 
 /**
- * @brief Cette fontion renvoie les coordonnées d'un point dont on connais la distance et l'angle
+ * @brief Cette fontion renvoie les coordonnï¿½es d'un point dont on connais la distance et l'angle
  * @param d: la distance en mm
- * @param a: l'angle en degrés
- * @return les coordonnées
+ * @param a: l'angle en degrï¿½s
+ * @return les coordonnï¿½es
  * @verbatim
  *	+---------------------------+
  *	|
@@ -176,7 +176,7 @@ void LD19_filter_trame_by_angle(point_t *tab_of_point, point_t *tab_of_point_fil
  *	|	 | \
  *	|	 |	\ D
  *	|	B|	 \			-> on cherche x et y,
- *	|    |    \			   Et comme on a D et l'angle a et qu'on se souvient de ses cours de troisième,
+ *	|    |    \			   Et comme on a D et l'angle a et qu'on se souvient de ses cours de troisiï¿½me,
  *	|	 |	   \		   Il suffit de faire de la trigo: B = sin(a)*D  A = cos(a)*D
  *	|	 |	  a \ 		   Et x = X-A ; y = B
  *	|	 | A   ( \
@@ -190,7 +190,7 @@ coordinate_t LD19_find_coordinate(uint16_t d, uint16_t a){
 	COS_SIN_4096_get(angle_rad_4096, &cosinus, &sinus);
 	coord.x = 160 + ((int32_t)cosinus * d * DISPLAY_SIZE) / (scale*100*4906);
 	coord.y = ((int32_t)sinus * d * DISPLAY_SIZE) / (scale*100*4096)  + 40;
-	//printf("Coordonnée: x->%d ; y->%d\n",coord.x,coord.y);
+	//printf("Coordonnï¿½e: x->%d ; y->%d\n",coord.x,coord.y);
 	return coord;
 }
 
@@ -206,7 +206,7 @@ void BSP_LD19_init_tft(void){
 
 	LD19_draw_scene();
 
-	//Les carrés pour zoomer
+	//Les carrï¿½s pour zoomer
 	ILI9341_DrawFilledRectangle(315, 235, 240, 190, ILI9341_COLOR_GREEN);
 	ILI9341_DrawRectangle(315, 235, 240, 190, ILI9341_COLOR_BLACK);
 	ILI9341_DrawFilledRectangle(80, 235, 5, 190, ILI9341_COLOR_RED);
@@ -222,8 +222,8 @@ void BSP_LD19_init_tft(void){
 }
 
 /**
- * @brief 	Cette fonction affiche la zone d'affichage des points sur l'écran tft.
- * @note	Vous pouvez utiliser cette fonction effacer les points sans casser tous les éléments de l'affichage
+ * @brief 	Cette fonction affiche la zone d'affichage des points sur l'ï¿½cran tft.
+ * @note	Vous pouvez utiliser cette fonction effacer les points sans casser tous les ï¿½lï¿½ments de l'affichage
  */
 void LD19_draw_scene(void){
 	//Demi cercle:
