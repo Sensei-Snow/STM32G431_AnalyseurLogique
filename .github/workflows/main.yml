@@ -1,0 +1,29 @@
+name: Build STM32
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Compiler avec STM32CubeIDE
+        uses: xanderhendriks/action-build-stm32cubeide@v17.0
+        with:
+          project-path: '.'
+          project-target: 'STM32G431_AnalyseurLogique/Debug'
+          # stm32cubeide-version: '2.2.0'   # à décommenter seulement si ce tag existe et que le défaut échoue
+
+      - name: Sauvegarder le firmware
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: |
+            **/Debug/*.elf
+            **/Debug/*.map
