@@ -20,6 +20,39 @@ jobs:
           project-target: 'STM32G431_AnalyseurLogique/Debug'
           # stm32cubeide-version: '2.2.0'   # à décommenter seulement si ce tag existe et que le défaut échoue
 
+      - name: Rapport de taille mémoire
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y binutils-arm-none-eabi
+
+          ELF=$(find . -path "*/Debug/*.elf" | head -n 1)
+          echo "Fichier analysé : $ELF"
+          arm-none-eabi-size "$ELF"
+
+          # Capacités de la puce : à adapter selon les LENGTH de ton .ld
+          FLASH_TOTAL=131072   # 128 Ko
+          RAM_TOTAL=22528      # 22 Ko (région RAM du .ld ; 32768 si tu comptes la CCM)
+
+          read TEXT DATA BSS _ < <(arm-none-eabi-size "$ELF" | awk 'NR==2 {print $1, $2, $3}')
+          FLASH=$((TEXT + DATA))
+          RAM=$((DATA + BSS))
+          FLASH_PCT=$(awk "BEGIN {printf \"%.1f\", $FLASH*100/$FLASH_TOTAL}")
+          RAM_PCT=$(awk "BEGIN {printf \"%.1f\", $RAM*100/$RAM_TOTAL}")
+
+          {
+            echo "## Utilisation mémoire (STM32G431KB)"
+            echo ""
+            echo "| Région | Utilisé | Total | Remplissage |"
+            echo "|---|---|---|---|"
+            echo "| Flash | $FLASH o | $FLASH_TOTAL o | $FLASH_PCT % |"
+            echo "| RAM (data + bss) | $RAM o | $RAM_TOTAL o | $RAM_PCT % |"
+          } >> "$GITHUB_STEP_SUMMARY"
+
+          # Alerte au-dessus de 90 %
+          if awk "BEGIN {exit !($FLASH_PCT > 90 || $RAM_PCT > 90)}"; then
+            echo "::warning::Mémoire utilisée à plus de 90 %"
+          fi
+
       - name: Sauvegarder le firmware
         uses: actions/upload-artifact@v4
         with:
