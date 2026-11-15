@@ -3,7 +3,7 @@
  * @file 				display.c
  * @author 				Arthur Retaillaud
  * @creation_date 		05/11/2026
- * @update_date			05/11/2026
+ * @update_date			15/11/2026
  * @see					display.h
  * @brief				Implémentation des fonctionnalités liées à l'écran.
  *******************************************************************************
@@ -14,8 +14,10 @@
 #include "TFT_ili9341/stm32g4_ili9341.h"
 #include "TFT_ili9341/stm32g4_fonts.h"
 #include "display.h"
+#include "../utils/logs/logs.h"
 
 /* **************************************************** Private macros *************************************************** */
+#define MODULE_NAME		"DISPLAY"
 
 /* ************************************************ Private type definition ********************************************** */
 
@@ -28,7 +30,12 @@
 /* ********************************************** Public functions definitions ******************************************* */
 void DISPLAY_init(void)
 {
+	LOGS_info(MODULE_NAME, "Setting GPIO configuration");
 	ILI9341_Init();
+
+	LOGS_info(MODULE_NAME, "Filling in white");
 	ILI9341_Fill(ILI9341_COLOR_WHITE);
+
+	LOGS_info(MODULE_NAME, "Setting orientation in Landscape_2");
 	ILI9341_Rotate(ILI9341_Orientation_Landscape_2);
 }

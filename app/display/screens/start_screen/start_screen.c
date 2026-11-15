@@ -3,7 +3,7 @@
  * @file 				start_screen.c
  * @author 				Arthur Retaillaud
  * @creation_date 		11/11/2026
- * @update_date			11/11/2026
+ * @update_date			15/11/2026
  * @see					start_screen.h
  * @brief				Implémentation des fonctionnalités liées à l'affichage de l'écran de démarrage.
  *******************************************************************************
@@ -12,6 +12,8 @@
 /* ******************************************************* Includes ****************************************************** */
 #include "tft_ili9341/stm32g4_ili9341.h"
 #include "../../TFTILI9341_driver_v2/TFTILI9341_driver_v2.h"
+#include "start_screen.h"
+#include "../../../utils/logs/logs.h"
 #ifndef PROGMEM
 #define PROGMEM
 #endif
@@ -19,10 +21,11 @@
 #include "images/image_logo_eseo.h"
 
 /* **************************************************** Private macros *************************************************** */
-#define SPACE_WIDTH 		119
-#define SPACE_HEIGHT 		33
-#define LOGO_ESEO_WIDTH  	187
-#define LOGO_ESEO_HEIGHT	68
+#define SPACE_WIDTH				119
+#define SPACE_HEIGHT			33
+#define LOGO_ESEO_WIDTH			187
+#define LOGO_ESEO_HEIGHT		68
+#define MODULE_NAME				"START_SCREEN"
 
 /* ************************************************ Private type definition ********************************************** */
 
@@ -35,7 +38,9 @@
 /* ********************************************** Public functions definitions ******************************************* */
 void draw_start_screen(void)
 {
-    ILI9341_Fill(ILI9341_COLOR_WHITE);
+	LOGS_info(MODULE_NAME, "Drawing screen");
+
+	ILI9341_Fill(ILI9341_COLOR_WHITE);
 
     ILI9341_Puts(81, 12, "Retaillo", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
     ILI9341_Puts(158, 42, "Studio", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);

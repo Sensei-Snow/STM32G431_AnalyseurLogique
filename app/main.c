@@ -23,6 +23,7 @@
 
 /* **************************************************** Private macros *************************************************** */
 #define CONFIGURATION_DATETIME		1
+#define MODULE_NAME					"MAIN"
 
 /* ************************************************ Private type definition ********************************************** */
 
@@ -34,12 +35,22 @@
 int main(void)
 {
 	//-- Initializations -----------------------------------
+	LOGS_info(MODULE_NAME, "Starting configuration");
+
+	LOGS_info(MODULE_NAME, "Initializing HAL");
 	HAL_Init();
+
+	LOGS_info(MODULE_NAME, "Enabling GPIO");
 	BSP_GPIO_enable();
+
+	LOGS_info(MODULE_NAME, "Initializing UART");
 	BSP_UART_init(UART2_ID,115200);
+
+	LOGS_info(MODULE_NAME, "Initializing USART");
 	BSP_SYS_set_std_usart(UART2_ID, UART2_ID, UART2_ID);
 
 	#if CONFIGURATION_DATETIME
+		LOGS_info(MODULE_NAME, "Configuration RTC date/time enabled");
 		RTC_TimeTypeDef time = {
 				.Hours = 14,
 				.Minutes = 30,
@@ -53,13 +64,18 @@ int main(void)
 		        .Year = 26
 		    };
 
+		LOGS_info(MODULE_NAME, "Initializing RTC and set date/time");
 		RTC_Init_SetDateTime(time, date);
 	#endif
+	LOGS_info(MODULE_NAME, "Configuration finished");
 
 	//-- Execution -----------------------------------
+	LOGS_info(MODULE_NAME, "Starting execution");
 	while(true) {
 		//TODO
 	}
+
+	LOGS_info(MODULE_NAME, "Execution finished");
 
 	return 0;
 }

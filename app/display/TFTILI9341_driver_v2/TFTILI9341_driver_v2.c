@@ -3,16 +3,22 @@
  * @file 				TFTILI9341_driver_v2.c
  * @author 				Arthur Retaillaud
  * @creation_date 		11/11/2026
- * @update_date			11/11/2026
+ * @update_date			15/11/2026
  * @see					TFTILI9341_driver_v2.h
  * @brief				Version 2 du driver fourni par l'ESEO pour l'écran TFTILI9341 car il est pété (oui oui le driver).
  *******************************************************************************
 */
 
 /* ******************************************************* Includes ****************************************************** */
+#include <stdint.h>
+#include <stdio.h>
+
 #include "tft_ili9341/stm32g4_ili9341.h"
+#include "TFTILI9341_driver_v2.h"
+#include "../../utils/logs/logs.h"
 
 /* **************************************************** Private macros *************************************************** */
+#define MODULE_NAME		"DISPLAY_DRIVER_V2"
 
 /* ************************************************ Private type definition ********************************************** */
 
@@ -25,7 +31,11 @@
 /* ********************************************** Public functions definitions ******************************************* */
 void ILI9341_putImage_monochrome_v2(int16_t x0, int16_t y0, int16_t w, int16_t h, const uint8_t *bmp, uint16_t color)
 {
-    int16_t byteWidth = (w + 7) / 8;
+	char buffer_textlog[100];
+	snprintf(buffer_textlog, sizeof(buffer_textlog), "Putting monochrome image on screen : x0 = %u, y0 = %u, width = %u, height = %u, color = %u", (unsigned int)x0, (unsigned int)y0, (unsigned int)w, (unsigned int)h, (unsigned int)color);
+	LOGS_info(MODULE_NAME, buffer_textlog);
+
+	int16_t byteWidth = (w + 7) / 8;
     for (int16_t j = 0; j < h; j++) {
         int16_t i = 0;
         while (i < w) {
