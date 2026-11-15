@@ -17,6 +17,8 @@ pour capturer, décoder et visualiser **UART**, **SPI** et **I²C** directement 
 ![Statut](https://img.shields.io/badge/Statut-En%20développement-F39C12?style=for-the-badge)
 ![École](https://img.shields.io/badge/ESEO-Projet%20étudiant-E2001A?style=for-the-badge)
 
+[![Build STM32](https://img.shields.io/github/actions/workflow/status/Sensei-Snow/STM32G431_AnalyseurLogique/main.yml?branch=main&style=for-the-badge&label=Build%20STM32)](https://github.com/Sensei-Snow/STM32G431_AnalyseurLogique/actions/workflows/main.yml)
+
 </div>
 
 ---
