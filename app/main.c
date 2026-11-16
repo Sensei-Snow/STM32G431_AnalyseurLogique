@@ -20,6 +20,7 @@
 #include "utils/utils.h"
 #include "utils/logs/logs.h"
 #include "utils/rtc/rtc.h"
+#include "program/program.h"
 
 /* **************************************************** Private macros *************************************************** */
 #define CONFIGURATION_DATETIME		1
@@ -35,32 +36,24 @@
 int main(void)
 {
 	//-- Initializations -----------------------------------
-	LOGS_info(MODULE_NAME, "Starting configuration");
-
-	LOGS_info(MODULE_NAME, "Initializing HAL");
 	HAL_Init();
-
-	LOGS_info(MODULE_NAME, "Enabling GPIO");
 	BSP_GPIO_enable();
-
-	LOGS_info(MODULE_NAME, "Initializing UART");
 	BSP_UART_init(UART2_ID,115200);
-
-	LOGS_info(MODULE_NAME, "Initializing USART");
 	BSP_SYS_set_std_usart(UART2_ID, UART2_ID, UART2_ID);
 
+	LOGS_info(MODULE_NAME, "Starting configuration");
 	#if CONFIGURATION_DATETIME
 		LOGS_info(MODULE_NAME, "Configuration RTC date/time enabled");
 		RTC_TimeTypeDef time = {
-				.Hours = 14,
-				.Minutes = 30,
+				.Hours = 9,
+				.Minutes = 17,
 				.Seconds = 0
 			};
 
 		RTC_DateTypeDef date = {
-		        .WeekDay = FRIDAY,
+		        .WeekDay = MONDAY,
 		        .Month = NOVEMBER,
-		        .Date = 13,
+		        .Date = 16,
 		        .Year = 26
 		    };
 
@@ -71,8 +64,14 @@ int main(void)
 
 	//-- Execution -----------------------------------
 	LOGS_info(MODULE_NAME, "Starting execution");
+
+	Program_t program;
+	Program_Init(&program, HAL_GetTick());
+
 	while(true) {
-		//TODO
+		uint32_t ms_now = HAL_GetTick();
+
+		Program_Update(&program, ms_now);
 	}
 
 	LOGS_info(MODULE_NAME, "Execution finished");
