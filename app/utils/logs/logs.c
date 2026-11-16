@@ -76,15 +76,15 @@ char* GetTime(void)
 /* ********************************************** Public functions definitions ******************************************* */
 void LOGS_info(const char *module, const char *message)
 {
-	printf("[INFO] [%s] -- %s -- %s -- %s\n", module, GetTime(), GetUptime(), message);
+	printf("[INFO] [%-15.15s] -- %s -- %s -- %s\n", module, GetTime(), GetUptime(), message);
 }
 
 void LOGS_warning(const char *module, const char *message)
 {
-	printf("[WARNING] [%s] -- %s -- %s -- %s\n", module, GetTime(), GetUptime(), message);
+	printf("[WARNING] [%-15.15s] -- %s -- %s -- %s\n", module, GetTime(), GetUptime(), message);
 }
 
 void LOGS_error(const char *module, const char *message)
 {
-	printf("[ERROR] [%s] -- %s -- %s -- %s\n", module, GetTime(), GetUptime(), message);
+	printf("[ERROR] [%-15.15s] -- %s -- %s -- %s\n", module, GetTime(), GetUptime(), message);
 }

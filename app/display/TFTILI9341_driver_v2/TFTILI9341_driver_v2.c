@@ -18,7 +18,7 @@
 #include "../../utils/logs/logs.h"
 
 /* **************************************************** Private macros *************************************************** */
-#define MODULE_NAME		"DISPLAY_DRIVER_V2"
+#define MODULE_NAME		"TFTILI9341"
 
 /* ************************************************ Private type definition ********************************************** */
 
