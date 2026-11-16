@@ -73,10 +73,10 @@
 
 /* Paramètres de l'écran */
 #ifndef ILI9341_WIDTH
-#define ILI9341_WIDTH        240
+#define ILI9341_WIDTH        320 // Change to 240 to restore the original
 #endif
 #ifndef ILI9341_HEIGHT
-#define ILI9341_HEIGHT       320
+#define ILI9341_HEIGHT       240 // Change to 320 to restore the original
 #endif
 
 #define ILI9341_PIXEL        (ILI9341_HEIGHT*ILI9341_WIDTH)

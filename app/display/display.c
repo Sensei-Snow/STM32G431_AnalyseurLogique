@@ -36,6 +36,6 @@ void DISPLAY_init(void)
 	LOGS_info(MODULE_NAME, "Filling in white");
 	ILI9341_Fill(ILI9341_COLOR_WHITE);
 
-	LOGS_info(MODULE_NAME, "Setting orientation in Landscape_2");
-	ILI9341_Rotate(ILI9341_Orientation_Landscape_2);
+	LOGS_info(MODULE_NAME, "Setting orientation in Portrait_1");
+	ILI9341_Rotate(ILI9341_Orientation_Portrait_1);
 }
