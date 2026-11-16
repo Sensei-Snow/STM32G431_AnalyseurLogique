@@ -50,12 +50,12 @@ Execution_State BUTTONS_init(void)
 	if (BSP_systick_add_callback_function(&BUTTONS_process_ms))
 	{
 		LOGS_info(MODULE_NAME, "Found place for callback function");
-		return STATE_OK;
+		return EXECUTION_OK;
 	}
 	else
 	{
 		LOGS_warning(MODULE_NAME, "No place found for callback function");
-		return STATE_WARNING;
+		return EXECUTION_WARNING;
 	}
 }
 
