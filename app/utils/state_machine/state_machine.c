@@ -3,7 +3,7 @@
  * @file 				state_machine.c
  * @author 				Arthur Retaillaud
  * @creation_date 		15/11/2026
- * @update_date			15/11/2026
+ * @update_date			16/11/2026
  * @see					state_machine.h
  * @brief				Implémentation des fonctionnalités liées à la gestion de machines à états.
  *******************************************************************************
