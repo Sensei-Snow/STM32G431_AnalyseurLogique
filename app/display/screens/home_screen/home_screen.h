@@ -19,6 +19,11 @@
 
 /* *********************************************** Public functions declarations ***************************************** */
 /**
- * @brief		Affiche l'écran de démarrage
+ * @brief		Affiche l'écran d'accueil
  */
 void draw_home_screen_initial(void);
+
+/**
+ * @brief		Affiche le menu de l'écran d'accueil
+ */
+void draw_home_screen_menu(void);

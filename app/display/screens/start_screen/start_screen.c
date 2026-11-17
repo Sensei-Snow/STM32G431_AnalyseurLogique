@@ -40,16 +40,21 @@ void draw_start_screen(void)
 {
 	LOGS_info(MODULE_NAME, "Drawing screen");
 
+	// Fond blanc
 	ILI9341_Fill(ILI9341_COLOR_WHITE);
 
+	// Texte du logo
     ILI9341_Puts(82, 18, "Retaillo", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
     ILI9341_Puts(165, 48, "Studio", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
 
+    // Frames du logo
     ILI9341_putImage_monochrome_v2(136, 41, SPACE_WIDTH, SPACE_HEIGHT, image_frame, ILI9341_COLOR_BLACK);
     ILI9341_putImage_monochrome_v2(65, 11, SPACE_WIDTH, SPACE_HEIGHT, image_frame, ILI9341_COLOR_BLACK);
 
+    // Texte
     ILI9341_Puts(39, 96, "Analyseur logique 3000", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
 
+    // Logo ESEO
     ILI9341_putImage(67, 147, LOGO_ESEO_WIDTH, LOGO_ESEO_HEIGHT,
                      (const int16_t *)image_logo_eseo,
 					 LOGO_ESEO_WIDTH * LOGO_ESEO_HEIGHT);

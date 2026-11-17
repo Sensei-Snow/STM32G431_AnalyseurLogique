@@ -107,7 +107,8 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 			{
 				LOGS_info(MODULE_NAME, "First loop in STATE_2");
 
-				draw_home_screen_initial();
+				//draw_home_screen_initial();
+				draw_home_screen_menu();
 			}
 
 			SM_SetState(&program->program_sm, STATE_3, now_ms);

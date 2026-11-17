@@ -20,8 +20,11 @@
 #include "images/image_button.h"
 #include "images/image_menu.h"
 #include "images/image_error.h"
+#include "images/image_settings.h"
+#include "images/image_information.h"
 
 /* **************************************************** Private macros *************************************************** */
+#define COLOR_PANEL 	0xDEDB
 #define MODULE_NAME		"HOME_SCREEN"
 
 /* ************************************************ Private type definition ********************************************** */
@@ -38,13 +41,48 @@ void draw_home_screen_initial(void)
 {
 	LOGS_info(MODULE_NAME, "Drawing screen");
 
+	// Fond blanc
 	ILI9341_Fill(ILI9341_COLOR_WHITE);
 
+	// Bouton menu
 	ILI9341_putImage_monochrome_v2(15, 12, 16, 16, image_menu, ILI9341_COLOR_BLACK);
 	ILI9341_putImage_monochrome_v2(5, 5, 33, 33, image_button, ILI9341_COLOR_BLACK);
 
+	// Texte
 	ILI9341_Puts(77, 123, "Aucun parametre", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
 	ILI9341_Puts(99, 148, "selectionne", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
 
+	// Icône d'erreur
 	ILI9341_putImage_monochrome_v2(145, 84, 31, 31, image_error, ILI9341_COLOR_BLACK);
+}
+
+void draw_home_screen_menu(void)
+{
+	LOGS_info(MODULE_NAME, "Drawing screen");
+
+	// Fond blanc
+	ILI9341_Fill(ILI9341_COLOR_WHITE);
+
+	// Panel de fond gris
+	ILI9341_DrawFilledRectangle(0, 0, 139, 239, COLOR_PANEL);
+	ILI9341_DrawFilledRectangle(140, 20, 159, 219, COLOR_PANEL);
+	ILI9341_DrawFilledCircle(139, 20, 20, COLOR_PANEL);
+	ILI9341_DrawFilledCircle(139, 219, 20, COLOR_PANEL);
+
+	// Bouton menu
+	ILI9341_putImage_monochrome_v2(5, 5, 33, 33, image_button, ILI9341_COLOR_BLACK);
+	ILI9341_putImage_monochrome_v2(15, 12, 16, 16, image_menu, ILI9341_COLOR_BLACK);
+
+	// Séparateurs
+	ILI9341_DrawLine(11, 49, 147, 49, ILI9341_COLOR_BLACK);
+	ILI9341_DrawLine(11, 79, 147, 79, ILI9341_COLOR_BLACK);
+	ILI9341_DrawLine(11, 109, 147, 109, ILI9341_COLOR_BLACK);
+
+	// Icônes
+	ILI9341_putImage_monochrome_v2(11, 56, 16, 16, image_settings, ILI9341_COLOR_BLACK);
+	ILI9341_putImage_monochrome_v2(11, 87, 15, 16, image_information, ILI9341_COLOR_BLACK);
+
+	// Textes
+	ILI9341_Puts(32, 56, "Parametres", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
+	ILI9341_Puts(32, 87, "Infos", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
 }
