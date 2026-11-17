@@ -3,7 +3,7 @@
  * @file 				start_screen.c
  * @author 				Arthur Retaillaud
  * @creation_date 		11/11/2026
- * @update_date			15/11/2026
+ * @update_date			16/11/2026
  * @see					start_screen.h
  * @brief				Implémentation des fonctionnalités liées à l'affichage de l'écran de démarrage.
  *******************************************************************************
