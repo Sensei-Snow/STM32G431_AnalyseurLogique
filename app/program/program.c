@@ -13,6 +13,7 @@
 #include <stdio.h>
 
 #include "tft_ili9341/stm32g4_ili9341.h"
+#include "tft_ili9341/stm32g4_xpt2046.h"
 #include "program.h"
 #include "../utils/state_machine/state_machine.h"
 #include "../utils/logs/logs.h"
@@ -20,6 +21,7 @@
 #include "../display/display.h"
 #include "../display/screens/start_screen/start_screen.h"
 #include "../display/screens/home_screen/home_screen.h"
+#include "../sensors/buttons/buttons.h"
 
 /* ******************************************************* Includes ****************************************************** */
 #define MODULE_NAME		"PROGRAM"
@@ -39,19 +41,19 @@ Execution_State Program_Init(Program_t *program, uint32_t now_ms)
 {
     if (program == NULL)
     {
-    	LOGS_error(MODULE_NAME, "Structure de program inexistante");
+    	LOGS_error(MODULE_NAME, "Program's structure nonexistent");
     	return EXECUTION_ERROR;
     }
 
-    LOGS_info(MODULE_NAME, "Initialisation de la machine à états de program");
+    LOGS_info(MODULE_NAME, "Initialization of program's state machine");
     if (SM_Init(&program->program_sm, STATE_INIT, now_ms) == EXECUTION_OK)
     {
-    	LOGS_info(MODULE_NAME, "Machine à états de program initialisée");
+    	LOGS_info(MODULE_NAME, "Program's state machine initialized");
         return EXECUTION_OK;
     }
     else
     {
-    	LOGS_error(MODULE_NAME, "Machine à états non initialisée");
+    	LOGS_error(MODULE_NAME, "State machine not initialized");
         return EXECUTION_ERROR;
     }
 }
@@ -61,11 +63,14 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 {
     if (program == NULL)
     {
-    	LOGS_error(MODULE_NAME, "Structure de program inexistante");
+    	LOGS_error(MODULE_NAME, "Program's structure nonexistent");
     	return EXECUTION_ERROR;
     }
 
     bool entered = SM_ConsumeStateChange(&program->program_sm);
+
+    Execution_State State_Buttons;
+    int16_t x, y;
 
     switch (SM_GetState(&program->program_sm))
     {
@@ -74,16 +79,25 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
             {
                 LOGS_info(MODULE_NAME, "First loop in STATE_INIT");
                 DISPLAY_init();
+                XPT2046_init();
+                State_Buttons = BUTTONS_init();
             }
 
-            SM_SetState(&program->program_sm, STATE_1, now_ms);
+            if (State_Buttons == EXECUTION_OK)
+            {
+            	SM_SetState(&program->program_sm, STATE_STARTSCREEN, now_ms);
+            }
+            else
+            {
+            	SM_SetState(&program->program_sm, STATE_WARNING, now_ms);
+            }
 
             break;
 
-        case STATE_1:
+        case STATE_STARTSCREEN:
             if (entered)
             {
-            	LOGS_info(MODULE_NAME, "First loop in STATE_1");
+            	LOGS_info(MODULE_NAME, "First loop in STATE_STARTSCREEN");
 
             	draw_start_screen();
 
@@ -97,31 +111,52 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 
             if (SM_HasTimedOut(&program->program_sm, 5000, now_ms))
             {
-            	SM_SetState(&program->program_sm, STATE_2, now_ms);
+            	SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
             }
 
             break;
 
-        case STATE_2:
+        case STATE_HOMESCREEN_INITIAL:
 			if (entered)
 			{
-				LOGS_info(MODULE_NAME, "First loop in STATE_2");
+				LOGS_info(MODULE_NAME, "First loop in STATE_HOMESCREEN_INITIAL");
 
-				//draw_home_screen_initial();
-				draw_home_screen_menu();
+				draw_home_screen_initial();
 			}
 
-			SM_SetState(&program->program_sm, STATE_3, now_ms);
+			if (XPT2046_getMedianCoordinates(&x, &y, XPT2046_COORDINATE_SCREEN_RELATIVE))
+			{
+				if (x < 50 && y < 50)
+				{
+					SM_SetState(&program->program_sm, STATE_HOMESCREEN_MENU, now_ms);
+				}
+			}
 
 			break;
 
-        case STATE_3:
+        case STATE_HOMESCREEN_MENU:
 			if (entered)
 			{
-				LOGS_info(MODULE_NAME, "First loop in STATE_3");
+				LOGS_info(MODULE_NAME, "First loop in STATE_HOMESCREEN_MENU");
+
+				draw_home_screen_menu();
 			}
 
-			SM_SetState(&program->program_sm, STATE_DONE, now_ms);
+			if (XPT2046_getMedianCoordinates(&x, &y, XPT2046_COORDINATE_SCREEN_RELATIVE))
+			{
+				if (x < 50 && y < 50)
+				{
+					SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
+				}
+				else if (x > 10 && x < 145 && y > 50 && y < 80)
+				{
+					SM_SetState(&program->program_sm, STATE_STARTSCREEN, now_ms);
+				}
+				else if (x > 10 && x < 145 && y > 80 && y < 110)
+				{
+					SM_SetState(&program->program_sm, STATE_STARTSCREEN, now_ms);
+				}
+			}
 
 			break;
 
@@ -134,6 +169,16 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
             /* Attente d'une éventuelle réinitialisation */
 
             break;
+
+        case STATE_WARNING:
+			if (entered)
+			{
+				LOGS_info(MODULE_NAME, "First loop in STATE_WARNING");
+			}
+
+			/* Attente d'une éventuelle réinitialisation */
+
+			break;
 
         case STATE_ERROR:
             if (entered)
