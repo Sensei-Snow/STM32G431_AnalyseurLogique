@@ -92,6 +92,10 @@ STM32G431_AnalyseurLogique/
 
 Les idées, remarques et suggestions sont les bienvenues ! N'hésitez pas à ouvrir une **issue** ou une **pull request**.
 
+## 📃 Documentation
+
+La documentation complète du projet a été générée avec Doxygen et est disponible à cette adresse : https://sensei-snow.github.io/STM32G431_AnalyseurLogique/
+
 ## 📄 Licence
 
 Ce projet sera distribué sous licence MIT.
