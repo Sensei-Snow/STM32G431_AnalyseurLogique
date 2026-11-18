@@ -3,7 +3,7 @@
  * @file 				program.c
  * @author 				Arthur Retaillaud
  * @creation_date 		15/11/2026
- * @update_date			17/11/2026
+ * @update_date			18/11/2026
  * @see					program.h
  * @brief				Implémentation des fonctionnalités liées au programme principal.
  *******************************************************************************
@@ -22,6 +22,7 @@
 #include "../display/screens/start_screen/start_screen.h"
 #include "../display/screens/home_screen/home_screen.h"
 #include "../sensors/buttons/buttons.h"
+#include "../actuators/internal_led/internal_led.h"
 
 /* ******************************************************* Includes ****************************************************** */
 #define MODULE_NAME		"PROGRAM"
@@ -78,8 +79,12 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
             if (entered)
             {
                 LOGS_info(MODULE_NAME, "First loop in STATE_INIT");
+
+                INTERNAL_LED_blink(1, 300);
+
                 DISPLAY_init();
                 XPT2046_init();
+                INTERNAL_LED_init();
                 State_Buttons = BUTTONS_init();
             }
 
@@ -98,6 +103,8 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
             if (entered)
             {
             	LOGS_info(MODULE_NAME, "First loop in STATE_STARTSCREEN");
+
+            	INTERNAL_LED_blink(1, 300);
 
             	draw_start_screen();
 
@@ -121,6 +128,8 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 			{
 				LOGS_info(MODULE_NAME, "First loop in STATE_HOMESCREEN_INITIAL");
 
+				INTERNAL_LED_blink(1, 300);
+
 				draw_home_screen_initial();
 			}
 
@@ -138,6 +147,8 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 			if (entered)
 			{
 				LOGS_info(MODULE_NAME, "First loop in STATE_HOMESCREEN_MENU");
+
+				INTERNAL_LED_blink(1, 300);
 
 				draw_home_screen_menu();
 			}
@@ -164,6 +175,8 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
             if (entered)
             {
             	LOGS_info(MODULE_NAME, "First loop in STATE_DONE");
+
+            	INTERNAL_LED_blink(0, 300);
             }
 
             /* Attente d'une éventuelle réinitialisation */
@@ -174,6 +187,8 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 			if (entered)
 			{
 				LOGS_info(MODULE_NAME, "First loop in STATE_WARNING");
+
+				INTERNAL_LED_blink(0, 300);
 			}
 
 			/* Attente d'une éventuelle réinitialisation */
@@ -184,6 +199,8 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
             if (entered)
             {
             	LOGS_info(MODULE_NAME, "First loop in STATE_ERROR");
+
+            	INTERNAL_LED_blink(0, 300);
             }
 
             /* Attente d'une éventuelle réinitialisation */
