@@ -34,5 +34,7 @@ void INTERNAL_LED_set(bool state);
 
 /**
  * @brief		Clignotement à l'infi de la LED interne de la carte Nucléo
+ * @param		nb_loop : Nombre de clignotements, 0 pour l'infini
+ * @param		delay_ms : temps d'attente entre chaque clignotement en milisecondes
  */
 void INTERNAL_LED_blink(uint32_t nb_loop, uint32_t delay_ms);
