@@ -1,7 +1,8 @@
 <div align="center">
 
-<!-- 📌 Dépose le logo de l'ESEO dans assets/eseo-logo.png -->
-<img src="https://www.eseo.fr/wp-content/uploads/2024/06/logo_eseo_admission_tiny1-768x298.png" alt="Logo ESEO" height="150">
+<img src="assets/logo_eseo_blanc.png" alt="Logo ESEO" height="100">
+
+<br>
 
 # 🔬 Analyseur Logique
 
