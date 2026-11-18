@@ -3,7 +3,7 @@
  * @file 				internal_led.h
  * @author 				Arthur Retaillaud
  * @creation_date 		11/11/2026
- * @update_date			11/11/2026
+ * @update_date			18/11/2026
  * @see					internal_led.h
  * @brief				Fichier d'en-tête pour l'implémentation des fonctionnalités liées à la LED interne de la carte Nucléo.
  *******************************************************************************

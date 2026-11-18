@@ -3,7 +3,7 @@
  * @file 				internal_led.c
  * @author 				Arthur Retaillaud
  * @creation_date 		11/11/2026
- * @update_date			15/11/2026
+ * @update_date			18/11/2026
  * @see					internal_led.h
  * @brief				Implémentation des fonctionnalités liées à la LED interne de la carte Nucléo.
  *******************************************************************************
@@ -71,12 +71,11 @@ void INTERNAL_LED_blink(uint32_t nb_loop, uint32_t delay_ms)
 		char buffer_logtext[100];
 		snprintf(buffer_logtext, sizeof(buffer_logtext), "Blinking for %lu times", (unsigned long)nb_loop);
 		LOGS_info(MODULE_NAME, buffer_logtext);
-		for(int i; i < nb_loop; i++) {
+		for(int i = 0; i < nb_loop; i++) {
 			HAL_GPIO_WritePin(INTERNAL_LED_GPIO, INTERNAL_LED_PIN, 1);
 			HAL_Delay(delay_ms);
 			HAL_GPIO_WritePin(INTERNAL_LED_GPIO, INTERNAL_LED_PIN, 0);
 			HAL_Delay(delay_ms);
 		}
 	}
-
 }
