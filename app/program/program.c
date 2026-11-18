@@ -80,21 +80,22 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
             {
                 LOGS_info(MODULE_NAME, "First loop in STATE_INIT");
 
-                INTERNAL_LED_blink(1, 300);
+                INTERNAL_LED_set(false);
 
                 DISPLAY_init();
                 XPT2046_init();
-                INTERNAL_LED_init();
                 State_Buttons = BUTTONS_init();
             }
 
             if (State_Buttons == EXECUTION_OK)
             {
             	SM_SetState(&program->program_sm, STATE_STARTSCREEN, now_ms);
+            	INTERNAL_LED_set(true);
             }
             else
             {
             	SM_SetState(&program->program_sm, STATE_WARNING, now_ms);
+            	INTERNAL_LED_set(true);
             }
 
             break;
@@ -104,7 +105,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
             {
             	LOGS_info(MODULE_NAME, "First loop in STATE_STARTSCREEN");
 
-            	INTERNAL_LED_blink(1, 300);
+            	INTERNAL_LED_set(false);
 
             	draw_start_screen();
 
@@ -119,6 +120,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
             if (SM_HasTimedOut(&program->program_sm, 5000, now_ms))
             {
             	SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
+            	INTERNAL_LED_set(true);
             }
 
             break;
@@ -128,7 +130,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 			{
 				LOGS_info(MODULE_NAME, "First loop in STATE_HOMESCREEN_INITIAL");
 
-				INTERNAL_LED_blink(1, 300);
+				INTERNAL_LED_set(false);
 
 				draw_home_screen_initial();
 			}
@@ -138,6 +140,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				if (x < 50 && y < 50)
 				{
 					SM_SetState(&program->program_sm, STATE_HOMESCREEN_MENU, now_ms);
+					INTERNAL_LED_set(true);
 				}
 			}
 
@@ -148,7 +151,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 			{
 				LOGS_info(MODULE_NAME, "First loop in STATE_HOMESCREEN_MENU");
 
-				INTERNAL_LED_blink(1, 300);
+				INTERNAL_LED_set(false);
 
 				draw_home_screen_menu();
 			}
@@ -158,14 +161,17 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				if (x < 50 && y < 50)
 				{
 					SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
+					INTERNAL_LED_set(true);
 				}
 				else if (x > 10 && x < 145 && y > 50 && y < 80)
 				{
 					SM_SetState(&program->program_sm, STATE_STARTSCREEN, now_ms);
+					INTERNAL_LED_set(true);
 				}
 				else if (x > 10 && x < 145 && y > 80 && y < 110)
 				{
 					SM_SetState(&program->program_sm, STATE_STARTSCREEN, now_ms);
+					INTERNAL_LED_set(true);
 				}
 			}
 

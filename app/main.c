@@ -21,6 +21,7 @@
 #include "utils/logs/logs.h"
 #include "utils/rtc/rtc.h"
 #include "program/program.h"
+#include "actuators/internal_led/internal_led.h"
 
 /* **************************************************** Private macros *************************************************** */
 #define CONFIGURATION_DATETIME		1
@@ -38,6 +39,10 @@ int main(void)
 	//-- Initializations -----------------------------------
 	HAL_Init();
 	BSP_GPIO_enable();
+
+	INTERNAL_LED_init();
+	INTERNAL_LED_set(true);
+
 	BSP_UART_init(UART2_ID,115200);
 	BSP_SYS_set_std_usart(UART2_ID, UART2_ID, UART2_ID);
 
@@ -60,6 +65,8 @@ int main(void)
 		LOGS_info(MODULE_NAME, "Initializing RTC and set date/time");
 		RTC_Init_SetDateTime(time, date);
 	#endif
+
+	INTERNAL_LED_set(false);
 	LOGS_info(MODULE_NAME, "Configuration finished");
 
 	//-- Execution -----------------------------------
