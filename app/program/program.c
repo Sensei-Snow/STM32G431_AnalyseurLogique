@@ -3,7 +3,7 @@
  * @file 				program.c
  * @author 				Arthur Retaillaud
  * @creation_date 		15/11/2026
- * @update_date			18/11/2026
+ * @update_date			22/11/2026
  * @see					program.h
  * @brief				Implémentation des fonctionnalités liées au programme principal.
  *******************************************************************************
@@ -21,6 +21,7 @@
 #include "../display/display.h"
 #include "../display/screens/start_screen/start_screen.h"
 #include "../display/screens/home_screen/home_screen.h"
+#include "../display/screens/infos_screen/infos_screen.h"
 #include "../sensors/buttons/buttons.h"
 #include "../actuators/internal_led/internal_led.h"
 
@@ -135,9 +136,9 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				draw_home_screen_initial();
 			}
 
-			if (XPT2046_getMedianCoordinates(&x, &y, XPT2046_COORDINATE_SCREEN_RELATIVE))
+			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
 			{
-				if (x < 50 && y < 50)
+				if (x > 3375 && x < 3500 && y > 3500 && y < 3800)
 				{
 					SM_SetState(&program->program_sm, STATE_HOMESCREEN_MENU, now_ms);
 					INTERNAL_LED_set(true);
@@ -156,21 +157,42 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				draw_home_screen_menu();
 			}
 
-			if (XPT2046_getMedianCoordinates(&x, &y, XPT2046_COORDINATE_SCREEN_RELATIVE))
+			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
 			{
-				if (x < 50 && y < 50)
+				if (x > 3375 && x < 3500 && y > 3500 && y < 3800)
 				{
 					SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
 					INTERNAL_LED_set(true);
 				}
-				else if (x > 10 && x < 145 && y > 50 && y < 80)
+				else if (x > 90 && x < 115 && y > 20 && y < 110)
 				{
 					SM_SetState(&program->program_sm, STATE_STARTSCREEN, now_ms);
 					INTERNAL_LED_set(true);
 				}
-				else if (x > 10 && x < 145 && y > 80 && y < 110)
+				else if (x > 2300 && x < 2700 && y > 2200 && y < 3500)
 				{
-					SM_SetState(&program->program_sm, STATE_STARTSCREEN, now_ms);
+					SM_SetState(&program->program_sm, STATE_INFOSCREEN, now_ms);
+					INTERNAL_LED_set(true);
+				}
+			}
+
+			break;
+
+        case STATE_INFOSCREEN:
+			if (entered)
+			{
+				LOGS_info(MODULE_NAME, "First loop in STATE_INFOSCREEN");
+
+				INTERNAL_LED_set(false);
+
+				draw_infos_screen();
+			}
+
+			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
+			{
+				if (x > 3375 && x < 3500 && y > 3500 && y < 3800)
+				{
+					SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
 					INTERNAL_LED_set(true);
 				}
 			}
@@ -185,7 +207,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
             	INTERNAL_LED_blink(0, 300);
             }
 
-            /* Attente d'une éventuelle réinitialisation */
+            // Attente d'une éventuelle réinitialisation
 
             break;
 
@@ -197,7 +219,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				INTERNAL_LED_blink(0, 300);
 			}
 
-			/* Attente d'une éventuelle réinitialisation */
+			// Attente d'une éventuelle réinitialisation
 
 			break;
 
@@ -209,7 +231,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
             	INTERNAL_LED_blink(0, 300);
             }
 
-            /* Attente d'une éventuelle réinitialisation */
+            // Attente d'une éventuelle réinitialisation
 
             break;
 

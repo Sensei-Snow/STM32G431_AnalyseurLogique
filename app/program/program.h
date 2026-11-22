@@ -3,7 +3,7 @@
  * @file 				program.h
  * @author 				Arthur Retaillaud
  * @creation_date 		15/11/2026
- * @update_date			18/11/2026
+ * @update_date			19/11/2026
  * @see					program.c
  * @brief				Fichier d'en-tête pour l'implémentation des fonctionnalités liées au programme principal.
  *******************************************************************************
@@ -29,6 +29,7 @@ typedef enum
     STATE_STARTSCREEN,
     STATE_HOMESCREEN_INITIAL,
     STATE_HOMESCREEN_MENU,
+	STATE_INFOSCREEN,
 	STATE_DONE,
 	STATE_WARNING,
     STATE_ERROR
