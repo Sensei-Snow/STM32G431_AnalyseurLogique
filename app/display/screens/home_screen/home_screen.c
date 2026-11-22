@@ -17,11 +17,11 @@
 #ifndef PROGMEM
 #define PROGMEM
 #endif
-#include "images/image_button.h"
-#include "images/image_menu.h"
-#include "images/image_error.h"
-#include "images/image_settings.h"
-#include "images/image_information.h"
+#include "../images/image_button.h"
+#include "../images/image_menu.h"
+#include "../images/image_error.h"
+#include "../images/image_settings.h"
+#include "../images/image_information.h"
 
 /* **************************************************** Private macros *************************************************** */
 #define COLOR_PANEL 	0xDEDB

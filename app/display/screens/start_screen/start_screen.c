@@ -17,8 +17,8 @@
 #ifndef PROGMEM
 #define PROGMEM
 #endif
-#include "images/image_frame.h"
-#include "images/image_logo_eseo.h"
+#include "../images/image_frame.h"
+#include "../images/image_logo_eseo.h"
 
 /* **************************************************** Private macros *************************************************** */
 #define SPACE_WIDTH				119
