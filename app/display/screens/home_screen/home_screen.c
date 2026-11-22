@@ -3,7 +3,7 @@
  * @file 				home_screen.c
  * @author 				Arthur Retaillaud
  * @creation_date 		17/11/2026
- * @update_date			17/11/2026
+ * @update_date			22/11/2026
  * @see					home_screen.h
  * @brief				Implémentation des fonctionnalités liées à l'écran d'accueil
  *******************************************************************************
@@ -24,7 +24,6 @@
 #include "../images/image_information.h"
 
 /* **************************************************** Private macros *************************************************** */
-#define COLOR_PANEL 	0xDEDB
 #define MODULE_NAME		"HOME_SCREEN"
 
 /* ************************************************ Private type definition ********************************************** */
@@ -49,8 +48,8 @@ void draw_home_screen_initial(void)
 	ILI9341_putImage_monochrome_v2(5, 5, 33, 33, image_button, ILI9341_COLOR_BLACK);
 
 	// Texte
-	ILI9341_Puts(77, 123, "Aucun parametre", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
-	ILI9341_Puts(99, 148, "selectionne", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
+	ILI9341_PutCentered(160, 123, "Aucun parametre", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
+	ILI9341_PutCentered(160, 148, "selectionne", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
 
 	// Icône d'erreur
 	ILI9341_putImage_monochrome_v2(145, 84, 31, 31, image_error, ILI9341_COLOR_BLACK);
@@ -64,10 +63,8 @@ void draw_home_screen_menu(void)
 	ILI9341_Fill(ILI9341_COLOR_WHITE);
 
 	// Panel de fond gris
-	ILI9341_DrawFilledRectangle(0, 0, 139, 239, COLOR_PANEL);
-	ILI9341_DrawFilledRectangle(140, 20, 159, 219, COLOR_PANEL);
-	ILI9341_DrawFilledCircle(139, 20, 20, COLOR_PANEL);
-	ILI9341_DrawFilledCircle(139, 219, 20, COLOR_PANEL);
+	ILI9341_DrawRoundFilledRectangle(0, 0, 159, 239, 20, COLOR_PANEL);
+	ILI9341_DrawFilledRectangle(0, 0, 20, 239, COLOR_PANEL);
 
 	// Bouton menu
 	ILI9341_putImage_monochrome_v2(5, 5, 33, 33, image_button, ILI9341_COLOR_BLACK);
