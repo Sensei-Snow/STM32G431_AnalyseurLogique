@@ -17,7 +17,7 @@
 #ifndef PROGMEM
 #define PROGMEM
 #endif
-#include "../images/image_frame.h"
+#include <display/screens/images/image_frame_startscreen.h>
 #include "../images/image_logo_eseo.h"
 
 /* **************************************************** Private macros *************************************************** */
