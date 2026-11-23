@@ -1,10 +1,10 @@
 /**
  *******************************************************************************
- * @file 				image_frame.h
+ * @file 				image_frame_startscreen.h
  * @author 				Arthur Retaillaud
  * @creation_date 		11/11/2026
- * @update_date			11/11/2026
- * @brief				Fichier d'en-tête pour l'image de la frame.
+ * @update_date			23/11/2026
+ * @brief				Fichier d'en-tête pour l'image de la frame de l'écran de démarrage.
  *******************************************************************************
 */
 
