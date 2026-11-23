@@ -22,6 +22,7 @@
 #include "../display/screens/start_screen/start_screen.h"
 #include "../display/screens/home_screen/home_screen.h"
 #include "../display/screens/infos_screen/infos_screen.h"
+#include "../display/screens/settings_screen/settings_screen.h"
 #include "../sensors/buttons/buttons.h"
 #include "../actuators/internal_led/internal_led.h"
 
@@ -164,12 +165,12 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 					SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
 					INTERNAL_LED_set(true);
 				}
-				else if (x > 90 && x < 115 && y > 20 && y < 110)
+				else if (x > 2800 && x < 3100 && y > 2200 && y < 3500)
 				{
-					SM_SetState(&program->program_sm, STATE_STARTSCREEN, now_ms);
+					SM_SetState(&program->program_sm, STATE_SETTINGSSCREEN_PAGE1, now_ms);
 					INTERNAL_LED_set(true);
 				}
-				else if (x > 2300 && x < 2700 && y > 2200 && y < 3500)
+				else if (x > 2300 && x < 2600 && y > 2200 && y < 3500)
 				{
 					SM_SetState(&program->program_sm, STATE_INFOSCREEN, now_ms);
 					INTERNAL_LED_set(true);
@@ -186,6 +187,27 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				INTERNAL_LED_set(false);
 
 				draw_infos_screen();
+			}
+
+			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
+			{
+				if (x > 3375 && x < 3500 && y > 3500 && y < 3800)
+				{
+					SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
+					INTERNAL_LED_set(true);
+				}
+			}
+
+			break;
+
+        case STATE_SETTINGSSCREEN_PAGE1:
+			if (entered)
+			{
+				LOGS_info(MODULE_NAME, "First loop in STATE_SETTINGSSCREEN_PAGE1");
+
+				INTERNAL_LED_set(false);
+
+				draw_settings_screen_page1();
 			}
 
 			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
