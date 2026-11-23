@@ -22,3 +22,18 @@
  * @brief		Affiche la page 1 de l'écran de paramètres
  */
 void draw_settings_screen_page1(void);
+
+/**
+ * @brief		Définis visuellement le protocole comme UART sur la page 1 de l'écran de paramètres
+ */
+void settings_screen_page1_set_uart(void);
+
+/**
+ * @brief		Définis visuellement le protocole comme I²C sur la page 1 de l'écran de paramètres
+ */
+void settings_screen_page1_set_i2c(void);
+
+/**
+ * @brief		Définis visuellement le protocole comme SPI sur la page 1 de l'écran de paramètres
+ */
+void settings_screen_page1_set_spi(void);
