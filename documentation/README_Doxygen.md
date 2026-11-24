@@ -59,12 +59,12 @@ flowchart LR
 - [ ] Décodage **SPI**
 - [ ] Décodage **I²C**
 - [ ] Affichage des chronogrammes sur écran
-- [ ] Interface utilisateur (déclenchement, zoom, choix du protocole)
-- [ ] Documentation complète et schémas
+- [x] Interface utilisateur (déclenchement, choix du protocole et des signaux logiques)
+- [x] Documentation complète et schémas
 
 ## 🚀 Démarrage rapide
 
-> 🚧 Le projet vient de démarrer : cette section sera complétée au fil de l'avancement.
+> 🚧 Le projet est encore un prototype : cette section sera complétée au fil de l'avancement.
 
 ```bash
 # Cloner le dépôt
@@ -90,13 +90,12 @@ STM32G431_AnalyseurLogique/
 
 ## 🤝 Contribuer
 
-Les idées, remarques et suggestions sont les bienvenues ! N'hésitez pas à ouvrir une **issue** ou une **pull request**.
+Les idées, remarques et suggestions sont les bienvenues ! N'hésitez pas à ouvrir une **issue** ! Les **pull request** ne sont pas acceptées pour le moment.
 <br>GitHub issues : https://github.com/Sensei-Snow/STM32G431_AnalyseurLogique/issues
-<br>GitHub Pull Requests : https://github.com/Sensei-Snow/STM32G431_AnalyseurLogique/pulls
 
 ## 📄 Licence
 
-Ce projet sera distribué sous licence MIT.
+Ce projet est distribué sous licence MIT.
 
 ---
 
