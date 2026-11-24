@@ -35,32 +35,6 @@ typedef enum {
 }Protocol;
 
 /**
- * @brief		Énumération des signaux physiques du protocole UART
- */
-typedef enum {
-	RX,
-	TX
-}UART_Signal;
-
-/**
- * @brief		Énumération des signaux physiques du protocole I2C
- */
-typedef enum {
-	SDA,
-	SCL
-}I2C_Signal;
-
-/**
- * @brief		Énumération des signaux physiques du protocole SPI
- */
-typedef enum {
-	SCLK,
-	MISO,
-	MOSI,
-	CS
-}SPI_Signal;
-
-/**
  * @brief		Énumération de tout les signaux physiques de tout les protocoles disponibles
  */
 typedef enum {

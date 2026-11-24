@@ -70,11 +70,19 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
     	return EXECUTION_ERROR;
     }
 
+    //-- Definition of variables -----------------------------------
     bool entered = SM_ConsumeStateChange(&program->program_sm);
 
     Execution_State State_Buttons;
     int16_t x, y;
 
+    Protocol ProtocolChosen;
+    All_Signal Channel1;
+    All_Signal Channel2;
+    All_Signal Channel3;
+    All_Signal Channel4;
+
+    //-- State machine -----------------------------------
     switch (SM_GetState(&program->program_sm))
     {
         case STATE_INIT:
@@ -216,6 +224,39 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
 					INTERNAL_LED_set(true);
+				}
+				else if (x > 0 && x < 0 && y > 0 && y < 0)
+				{
+					ProtocolChosen = UART;
+					settings_screen_page1_set_uart();
+				}
+				else if (x > 0 && x < 0 && y > 0 && y < 0)
+				{
+					ProtocolChosen = I2C;
+					settings_screen_page1_set_i2c();
+				}
+				else if (x > 0 && x < 0 && y > 0 && y < 0)
+				{
+					ProtocolChosen = SPI;
+					settings_screen_page1_set_spi();
+				}
+				else if (x > 0 && x < 0 && y > 0 && y < 0)
+				{
+					if (ProtocolChosen == UART)
+					{
+						SM_SetState(&program->program_sm, STATE_SETTINGSSCREEN_PAGE2_UART, now_ms);
+						INTERNAL_LED_set(true);
+					}
+					if (ProtocolChosen == I2C)
+					{
+						SM_SetState(&program->program_sm, STATE_SETTINGSSCREEN_PAGE2_I2C, now_ms);
+						INTERNAL_LED_set(true);
+					}
+					if (ProtocolChosen == SPI)
+					{
+						SM_SetState(&program->program_sm, STATE_SETTINGSSCREEN_PAGE2_SPI, now_ms);
+						INTERNAL_LED_set(true);
+					}
 				}
 			}
 
