@@ -216,31 +216,46 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				INTERNAL_LED_set(false);
 
 				draw_settings_screen_page1();
+
+				if (ProtocolChosen == UART)
+				{
+					settings_screen_page1_set_uart();
+				}
+				else if (ProtocolChosen == I2C)
+				{
+					settings_screen_page1_set_i2c();
+				}
+				else if (ProtocolChosen == SPI)
+				{
+					settings_screen_page1_set_spi();
+				}
 			}
 
 			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
 			{
+				//printf("x = %d --- y = %d\n", x, y);
+
 				if (x > 3375 && x < 3500 && y > 3500 && y < 3800)
 				{
 					SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
 					INTERNAL_LED_set(true);
 				}
-				else if (x > 0 && x < 0 && y > 0 && y < 0)
+				else if (x > 2200 && x < 2600 && y > 1350 && y < 2800)
 				{
 					ProtocolChosen = UART;
 					settings_screen_page1_set_uart();
 				}
-				else if (x > 0 && x < 0 && y > 0 && y < 0)
+				else if (x > 1450 && x < 1900 && y > 1350 && y < 2800)
 				{
 					ProtocolChosen = I2C;
 					settings_screen_page1_set_i2c();
 				}
-				else if (x > 0 && x < 0 && y > 0 && y < 0)
+				else if (x > 750 && x < 1150 && y > 1350 && y < 2800)
 				{
 					ProtocolChosen = SPI;
 					settings_screen_page1_set_spi();
 				}
-				else if (x > 0 && x < 0 && y > 0 && y < 0)
+				else if (x > 1500 && x < 2000 && y > 300 && y < 600)
 				{
 					if (ProtocolChosen == UART)
 					{
