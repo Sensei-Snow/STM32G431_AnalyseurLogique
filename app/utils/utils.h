@@ -3,7 +3,7 @@
  * @file 				utils.h
  * @author 				Arthur Retaillaud
  * @creation_date 		11/11/2026
- * @update_date			11/11/2026
+ * @update_date			24/11/2026
  * @brief				Fichier d'en-tête pour l'implémentation de fonctionnalités utiles et fort sympathiques.
  *******************************************************************************
 */
@@ -59,5 +59,19 @@ typedef enum {
 	MOSI,
 	CS
 }SPI_Signal;
+
+/**
+ * @brief		Énumération de tout les signaux physiques de tout les protocoles disponibles
+ */
+typedef enum {
+	RX,
+	TX,
+	SDA,
+	SCL,
+	SCLK,
+	MISO,
+	MOSI,
+	CS
+}All_Signal;
 
 /* *********************************************** Public functions declarations ***************************************** */
