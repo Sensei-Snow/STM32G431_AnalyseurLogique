@@ -76,11 +76,11 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
     Execution_State State_Buttons;
     int16_t x, y;
 
-    Protocol ProtocolChosen;
-    All_Signal Channel1;
-    All_Signal Channel2;
-    All_Signal Channel3;
-    All_Signal Channel4;
+    Protocol ProtocolChosen = NO_PROTOCOL;
+    All_Signal Channel1 = NO_SIGNAL;
+    All_Signal Channel2 = NO_SIGNAL;
+    All_Signal Channel3 = NO_SIGNAL;
+    All_Signal Channel4 = NO_SIGNAL;
 
     //-- State machine -----------------------------------
     switch (SM_GetState(&program->program_sm))

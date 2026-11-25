@@ -29,6 +29,7 @@ typedef enum {
  * @brief		Énumération des protocoles disponibles
  */
 typedef enum {
+	NO_PROTOCOL,
 	UART,
 	I2C,
 	SPI
@@ -38,6 +39,7 @@ typedef enum {
  * @brief		Énumération de tout les signaux physiques de tout les protocoles disponibles
  */
 typedef enum {
+	NO_SIGNAL,
 	RX,
 	TX,
 	SDA,
