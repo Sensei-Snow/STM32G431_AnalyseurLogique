@@ -92,14 +92,14 @@ void draw_home_screen_menu(void)
 
 	// Séparateurs
 	ILI9341_DrawLine(11, 49, 147, 49, ILI9341_COLOR_BLACK);
-	ILI9341_DrawLine(11, 79, 147, 79, ILI9341_COLOR_BLACK);
-	ILI9341_DrawLine(11, 109, 147, 109, ILI9341_COLOR_BLACK);
+	ILI9341_DrawLine(11, 89, 147, 89, ILI9341_COLOR_BLACK);
+	ILI9341_DrawLine(11, 129, 147, 129, ILI9341_COLOR_BLACK);
 
 	// Icônes
-	ILI9341_putImage_monochrome_v2(11, 56, 16, 16, image_settings, ILI9341_COLOR_BLACK);
-	ILI9341_putImage_monochrome_v2(11, 87, 15, 16, image_information, ILI9341_COLOR_BLACK);
+	ILI9341_putImage_monochrome_v2(11, 61, 16, 16, image_settings, ILI9341_COLOR_BLACK);
+	ILI9341_putImage_monochrome_v2(11, 102, 15, 16, image_information, ILI9341_COLOR_BLACK);
 
 	// Textes
-	ILI9341_Puts(32, 56, "Parametres", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
-	ILI9341_Puts(32, 87, "Infos", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
+	ILI9341_Puts(32, 61, "Parametres", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
+	ILI9341_Puts(32, 102, "Infos", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
 }
