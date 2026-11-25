@@ -180,12 +180,12 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 					SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
 					INTERNAL_LED_set(true);
 				}
-				else if (x > 2800 && x < 3100 && y > 2200 && y < 3500)
+				else if (x > 2600 && x < 3050 && y > 2250 && y < 3750)
 				{
 					SM_SetState(&program->program_sm, STATE_SETTINGSSCREEN_PAGE1, now_ms);
 					INTERNAL_LED_set(true);
 				}
-				else if (x > 2300 && x < 2600 && y > 2200 && y < 3500)
+				else if (x > 2000 && x < 2450 && y > 2250 && y < 3750)
 				{
 					SM_SetState(&program->program_sm, STATE_INFOSCREEN, now_ms);
 					INTERNAL_LED_set(true);
@@ -240,8 +240,6 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 
 			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
 			{
-				//printf("x = %d --- y = %d\n", x, y);
-
 				if (x > 3375 && x < 3500 && y > 3500 && y < 3800)
 				{
 					SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
