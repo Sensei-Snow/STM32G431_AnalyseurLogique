@@ -46,6 +46,11 @@ typedef enum
 typedef struct
 {
     StateMachine_t program_sm;
+    Protocol protocol;
+    All_Signal channel1;
+    All_Signal channel2;
+    All_Signal channel3;
+    All_Signal channel4;
 
 } Program_t;
 

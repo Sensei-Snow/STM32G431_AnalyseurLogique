@@ -48,6 +48,12 @@ Execution_State Program_Init(Program_t *program, uint32_t now_ms)
     	return EXECUTION_ERROR;
     }
 
+    program->protocol = NO_PROTOCOL;
+    program->channel1 = NO_SIGNAL;
+    program->channel2 = NO_SIGNAL;
+    program->channel3 = NO_SIGNAL;
+    program->channel4 = NO_SIGNAL;
+
     LOGS_info(MODULE_NAME, "Initialization of program's state machine");
     if (SM_Init(&program->program_sm, STATE_INIT, now_ms) == EXECUTION_OK)
     {
@@ -75,12 +81,6 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 
     Execution_State State_Buttons;
     int16_t x, y;
-
-    Protocol ProtocolChosen = NO_PROTOCOL;
-    All_Signal Channel1 = NO_SIGNAL;
-    All_Signal Channel2 = NO_SIGNAL;
-    All_Signal Channel3 = NO_SIGNAL;
-    All_Signal Channel4 = NO_SIGNAL;
 
     //-- State machine -----------------------------------
     switch (SM_GetState(&program->program_sm))
@@ -142,7 +142,14 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 
 				INTERNAL_LED_set(false);
 
-				draw_home_screen_initial();
+				if (program->protocol == NO_PROTOCOL)
+				{
+					draw_home_screen_initial();
+				}
+				else if (program->channel1 == NO_SIGNAL || program->channel2 == NO_SIGNAL || program->channel3 == NO_SIGNAL || program->channel4 == NO_SIGNAL)
+				{
+					draw_home_screen_incomplete_settings();
+				}	
 			}
 
 			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
@@ -217,15 +224,15 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 
 				draw_settings_screen_page1();
 
-				if (ProtocolChosen == UART)
+				if (program->protocol == UART)
 				{
 					settings_screen_page1_set_uart();
 				}
-				else if (ProtocolChosen == I2C)
+				else if (program->protocol == I2C)
 				{
 					settings_screen_page1_set_i2c();
 				}
-				else if (ProtocolChosen == SPI)
+				else if (program->protocol == SPI)
 				{
 					settings_screen_page1_set_spi();
 				}
@@ -242,32 +249,32 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				}
 				else if (x > 2200 && x < 2600 && y > 1350 && y < 2800)
 				{
-					ProtocolChosen = UART;
+					program->protocol = UART;
 					settings_screen_page1_set_uart();
 				}
 				else if (x > 1450 && x < 1900 && y > 1350 && y < 2800)
 				{
-					ProtocolChosen = I2C;
+					program->protocol = I2C;
 					settings_screen_page1_set_i2c();
 				}
 				else if (x > 750 && x < 1150 && y > 1350 && y < 2800)
 				{
-					ProtocolChosen = SPI;
+					program->protocol = SPI;
 					settings_screen_page1_set_spi();
 				}
 				else if (x > 1500 && x < 2000 && y > 300 && y < 600)
 				{
-					if (ProtocolChosen == UART)
+					if (program->protocol == UART)
 					{
 						SM_SetState(&program->program_sm, STATE_SETTINGSSCREEN_PAGE2_UART, now_ms);
 						INTERNAL_LED_set(true);
 					}
-					if (ProtocolChosen == I2C)
+					if (program->protocol == I2C)
 					{
 						SM_SetState(&program->program_sm, STATE_SETTINGSSCREEN_PAGE2_I2C, now_ms);
 						INTERNAL_LED_set(true);
 					}
-					if (ProtocolChosen == SPI)
+					if (program->protocol == SPI)
 					{
 						SM_SetState(&program->program_sm, STATE_SETTINGSSCREEN_PAGE2_SPI, now_ms);
 						INTERNAL_LED_set(true);
