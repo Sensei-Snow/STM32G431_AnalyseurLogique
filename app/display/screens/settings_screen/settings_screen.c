@@ -37,7 +37,7 @@
 /* ********************************************** Public functions definitions ******************************************* */
 void draw_settings_screen_page1(void)
 {
-	LOGS_info(MODULE_NAME, "Drawing screen");
+	LOGS_info(MODULE_NAME, "Drawing settings_screen_page1");
 
 	// Fond blanc
 	ILI9341_Fill(ILI9341_COLOR_WHITE);
@@ -72,6 +72,8 @@ void draw_settings_screen_page1(void)
 
 void settings_screen_page1_set_uart(void)
 {
+	LOGS_info(MODULE_NAME, "Setting UART as the selected protocol");
+
 	// Cadres des trois boutons
 	ILI9341_putImage_monochrome_v2(95, 80, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLUE2);
 	ILI9341_putImage_monochrome_v2(95, 128, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
@@ -85,6 +87,8 @@ void settings_screen_page1_set_uart(void)
 
 void settings_screen_page1_set_i2c(void)
 {
+	LOGS_info(MODULE_NAME, "Setting I2C as the selected protocol");
+
 	// Cadres des trois boutons
 	ILI9341_putImage_monochrome_v2(95, 80, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
 	ILI9341_putImage_monochrome_v2(95, 128, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLUE2);
@@ -98,6 +102,8 @@ void settings_screen_page1_set_i2c(void)
 
 void settings_screen_page1_set_spi(void)
 {
+	LOGS_info(MODULE_NAME, "Setting SPI as the selected protocol");
+	
 	// Cadres des trois boutons
 	ILI9341_putImage_monochrome_v2(95, 80, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
 	ILI9341_putImage_monochrome_v2(95, 128, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);

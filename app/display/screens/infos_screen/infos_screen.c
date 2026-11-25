@@ -35,6 +35,8 @@
 /* ********************************************** Public functions definitions ******************************************* */
 void draw_infos_screen(void)
 {
+    LOGS_info(MODULE_NAME, "Drawing infos_screen");
+
     ILI9341_Fill(ILI9341_COLOR_WHITE);
 
     // Bouton fermer

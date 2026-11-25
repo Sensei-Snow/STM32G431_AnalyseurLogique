@@ -57,7 +57,7 @@ void draw_home_screen_initial(void)
 
 void draw_home_screen_menu(void)
 {
-	LOGS_info(MODULE_NAME, "Drawing screen");
+	LOGS_info(MODULE_NAME, "Drawing home_screen_menu");
 
 	// Fond blanc
 	ILI9341_Fill(ILI9341_COLOR_WHITE);

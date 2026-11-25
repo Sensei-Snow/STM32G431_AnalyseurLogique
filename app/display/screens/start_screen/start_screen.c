@@ -10,6 +10,8 @@
 */
 
 /* ******************************************************* Includes ****************************************************** */
+#include <stdint.h>
+
 #include "tft_ili9341/stm32g4_ili9341.h"
 #include "../../TFTILI9341_driver_v2/TFTILI9341_driver_v2.h"
 #include "start_screen.h"
@@ -38,7 +40,7 @@
 /* ********************************************** Public functions definitions ******************************************* */
 void draw_start_screen(void)
 {
-	LOGS_info(MODULE_NAME, "Drawing screen");
+	LOGS_info(MODULE_NAME, "Drawing start_screen");
 
 	// Fond blanc
 	ILI9341_Fill(ILI9341_COLOR_WHITE);
