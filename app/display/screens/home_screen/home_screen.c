@@ -38,7 +38,7 @@
 
 void draw_home_screen_initial(void)
 {
-	LOGS_info(MODULE_NAME, "Drawing screen");
+	LOGS_info(MODULE_NAME, "Drawing home_screen_initial");
 
 	// Fond blanc
 	ILI9341_Fill(ILI9341_COLOR_WHITE);
@@ -50,6 +50,25 @@ void draw_home_screen_initial(void)
 	// Texte
 	ILI9341_PutCentered(160, 123, "Aucun parametre", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
 	ILI9341_PutCentered(160, 148, "selectionne", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
+
+	// Icône d'erreur
+	ILI9341_putImage_monochrome_v2(145, 84, 31, 31, image_error, ILI9341_COLOR_BLACK);
+}
+
+void draw_home_screen_incomplete_settings(void)
+{
+	LOGS_info(MODULE_NAME, "Drawing home_screen_incomplete_settings");
+
+	// Fond blanc
+	ILI9341_Fill(ILI9341_COLOR_WHITE);
+
+	// Bouton menu
+	ILI9341_putImage_monochrome_v2(15, 12, 16, 16, image_menu, ILI9341_COLOR_BLACK);
+	ILI9341_putImage_monochrome_v2(5, 5, 33, 33, image_button, ILI9341_COLOR_BLACK);
+
+	// Texte
+	ILI9341_PutCentered(160, 123, "Parametres", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
+	ILI9341_PutCentered(160, 148, "incomplets", &Font_11x18, ILI9341_COLOR_BLACK, ILI9341_COLOR_WHITE);
 
 	// Icône d'erreur
 	ILI9341_putImage_monochrome_v2(145, 84, 31, 31, image_error, ILI9341_COLOR_BLACK);
