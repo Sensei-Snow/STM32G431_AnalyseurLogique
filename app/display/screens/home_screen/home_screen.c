@@ -19,6 +19,7 @@
 #endif
 #include "../images/image_button.h"
 #include "../images/image_menu.h"
+#include "../images/image_cross.h"
 #include "../images/image_error.h"
 #include "../images/image_settings.h"
 #include "../images/image_information.h"
@@ -87,7 +88,7 @@ void draw_home_screen_menu(void)
 
 	// Bouton menu
 	ILI9341_putImage_monochrome_v2(5, 5, 33, 33, image_button, ILI9341_COLOR_BLACK);
-	ILI9341_putImage_monochrome_v2(15, 12, 16, 16, image_menu, ILI9341_COLOR_BLACK);
+	ILI9341_putImage_monochrome_v2(15, 9, 16, 23, image_cross, ILI9341_COLOR_BLACK);
 
 	// Séparateurs
 	ILI9341_DrawLine(11, 49, 147, 49, ILI9341_COLOR_BLACK);
