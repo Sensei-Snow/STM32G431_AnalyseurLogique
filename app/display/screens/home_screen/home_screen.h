@@ -26,7 +26,7 @@ void draw_home_screen_initial(void);
 /***
  * @brief		Affiche l'écran d'accueil avec un message d'erreur indiquant que les paramètres sont incomplets
  */
-void draw_home_screen_incomplete_settings(void)
+void draw_home_screen_incomplete_settings(void);
 
 /**
  * @brief		Affiche le menu de l'écran d'accueil

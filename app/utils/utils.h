@@ -40,6 +40,7 @@ typedef enum {
  */
 typedef enum {
 	NO_SIGNAL,
+	NOT_USED,
 	RX,
 	TX,
 	SDA,
