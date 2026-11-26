@@ -34,10 +34,27 @@
 /* ************************************************ Private type definition ********************************************** */
 
 /* ********************************************* Private functions declarations ****************************************** */
+void reset_program(Program_t *program);
 
 /* ************************************************** Private variables ************************************************** */
 
 /* ********************************************** Private functions definitions ****************************************** */
+void reset_program(Program_t *program)
+{
+	program->channel1 = NO_SIGNAL;
+	program->channel2 = NO_SIGNAL;
+	program->channel3 = NO_SIGNAL;
+	program->channel4 = NO_SIGNAL;
+
+	program->RX_used = false;
+	program->TX_used = false;
+	program->SDA_used = false;
+	program->SCL_used = false;
+	program->SCLK_used = false;
+	program->MISO_used = false;
+	program->MOSI_used = false;
+	program->CS_used = false;
+}
 
 /* ********************************************** Public functions definitions ******************************************* */
 Execution_State Program_Init(Program_t *program, uint32_t now_ms)
@@ -253,19 +270,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					program->protocol = UART;
 
-					program->channel1 = NO_SIGNAL;
-					program->channel2 = NO_SIGNAL;
-					program->channel3 = NO_SIGNAL;
-					program->channel4 = NO_SIGNAL;
-
-					program->RX_used = false;
-					program->TX_used = false;
-					program->SDA_used = false;
-					program->SCL_used = false;
-					program->SCLK_used = false;
-					program->MISO_used = false;
-					program->MOSI_used = false;
-					program->CS_used = false;
+					reset_program(program);
 
 					settings_screen_page1_set_uart_visual();
 				}
@@ -273,19 +278,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					program->protocol = I2C;
 
-					program->channel1 = NO_SIGNAL;
-					program->channel2 = NO_SIGNAL;
-					program->channel3 = NO_SIGNAL;
-					program->channel4 = NO_SIGNAL;
-
-					program->RX_used = false;
-					program->TX_used = false;
-					program->SDA_used = false;
-					program->SCL_used = false;
-					program->SCLK_used = false;
-					program->MISO_used = false;
-					program->MOSI_used = false;
-					program->CS_used = false;
+					reset_program(program);
 
 					settings_screen_page1_set_i2c_visual();
 				}
@@ -293,19 +286,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					program->protocol = SPI;
 
-					program->channel1 = NO_SIGNAL;
-					program->channel2 = NO_SIGNAL;
-					program->channel3 = NO_SIGNAL;
-					program->channel4 = NO_SIGNAL;
-
-					program->RX_used = false;
-					program->TX_used = false;
-					program->SDA_used = false;
-					program->SCL_used = false;
-					program->SCLK_used = false;
-					program->MISO_used = false;
-					program->MOSI_used = false;
-					program->CS_used = false;
+					reset_program(program);
 
 					settings_screen_page1_set_spi_visual();
 				}
