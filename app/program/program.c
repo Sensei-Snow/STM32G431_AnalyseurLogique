@@ -484,6 +484,11 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 						settings_screen_page2_set_tx_visual(4);
 					}
 				}
+				else if (x > 1500 && x < 2000 && y > 3500 && y < 3800)
+				{
+					SM_SetState(&program->program_sm, STATE_SETTINGSSCREEN_PAGE1, now_ms);
+					INTERNAL_LED_set(true);
+				}
 			}
 
 			break;
