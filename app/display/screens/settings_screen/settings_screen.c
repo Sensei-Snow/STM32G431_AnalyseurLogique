@@ -66,7 +66,7 @@ void draw_settings_screen_page1(void)
 	// Cadres des trois boutons
 	ILI9341_putImage_monochrome_v2(95, 80, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
 	ILI9341_putImage_monochrome_v2(95, 128, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
-	ILI9341_putImage_monochrome_v2(96, 176, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
+	ILI9341_putImage_monochrome_v2(95, 176, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
 
 	// Libellés
 	ILI9341_PutCentered(160, 89, "UART", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
