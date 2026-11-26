@@ -28,6 +28,11 @@ void draw_home_screen_initial(void);
  */
 void draw_home_screen_incomplete_settings(void);
 
+/***
+ * @brief		Affiche l'écran d'accueil avec un message indiquant que les paramètres sont corrects
+ */
+void draw_home_screen_ok(void);
+
 /**
  * @brief		Affiche le menu de l'écran d'accueil
  */
