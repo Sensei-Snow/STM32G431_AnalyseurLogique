@@ -3,7 +3,7 @@
  * @file 				program.c
  * @author 				Arthur Retaillaud
  * @creation_date 		15/11/2026
- * @update_date			26/11/2026
+ * @update_date			27/11/2026
  * @see					program.h
  * @brief				Implémentation des fonctionnalités liées au programme principal.
  *******************************************************************************
@@ -144,14 +144,16 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 
 				if (program->protocol == NO_PROTOCOL)
 					draw_home_screen_initial();
-				else if (program->channel1 == NO_SIGNAL || program->channel2 == NO_SIGNAL || program->channel3 == NO_SIGNAL || program->channel4 == NO_SIGNAL)
+				else if (program->channel1 == NO_SIGNAL && program->channel2 == NO_SIGNAL && program->channel3 == NO_SIGNAL && program->channel4 == NO_SIGNAL)
 					draw_home_screen_incomplete_settings();
 				else if (program->protocol == UART && (program->RX_used == false || program->TX_used == false))
 					draw_home_screen_incomplete_settings();
 				else if (program->protocol == I2C && (program->SDA_used == false || program->SCL_used == false))
 					draw_home_screen_incomplete_settings();
-				else if (program->protocol == UART && (program->SCLK_used == false || program->MISO_used == false || program->MOSI_used == false || program->CS_used == false))
+				else if (program->protocol == SPI && (program->SCLK_used == false || program->MISO_used == false || program->MOSI_used == false || program->CS_used == false))
 					draw_home_screen_incomplete_settings();
+				else
+					draw_home_screen_ok();
 			}
 
 			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
@@ -251,6 +253,11 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					program->protocol = UART;
 
+					program->channel1 = NO_SIGNAL;
+					program->channel2 = NO_SIGNAL;
+					program->channel3 = NO_SIGNAL;
+					program->channel4 = NO_SIGNAL;
+
 					program->RX_used = false;
 					program->TX_used = false;
 					program->SDA_used = false;
@@ -266,6 +273,11 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					program->protocol = I2C;
 
+					program->channel1 = NO_SIGNAL;
+					program->channel2 = NO_SIGNAL;
+					program->channel3 = NO_SIGNAL;
+					program->channel4 = NO_SIGNAL;
+
 					program->RX_used = false;
 					program->TX_used = false;
 					program->SDA_used = false;
@@ -280,6 +292,11 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				else if (x > 750 && x < 1150 && y > 1350 && y < 2800)
 				{
 					program->protocol = SPI;
+
+					program->channel1 = NO_SIGNAL;
+					program->channel2 = NO_SIGNAL;
+					program->channel3 = NO_SIGNAL;
+					program->channel4 = NO_SIGNAL;
 
 					program->RX_used = false;
 					program->TX_used = false;
@@ -324,21 +341,40 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				draw_settings_screen_page2_uart();
 
 				if (program->channel1 == RX)
+				{
 					settings_screen_page2_set_rx_visual(1);
+				}
 				else if (program->channel1 == TX)
+				{
 					settings_screen_page2_set_tx_visual(1);
+				}
+
 				if (program->channel2 == RX)
+				{
 					settings_screen_page2_set_rx_visual(2);
+				}
 				else if (program->channel2 == TX)
+				{
 					settings_screen_page2_set_tx_visual(2);
+				}
+
 				if (program->channel3 == RX)
+				{
 					settings_screen_page2_set_rx_visual(3);
+				}
 				else if (program->channel3 == TX)
+				{
 					settings_screen_page2_set_tx_visual(3);
+				}
+
 				if (program->channel4 == RX)
+				{
 					settings_screen_page2_set_rx_visual(4);
+				}
 				else if (program->channel4 == TX)
+				{
 					settings_screen_page2_set_tx_visual(4);
+				}
 			}
 
 			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
@@ -452,15 +488,15 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				}
 				else if (x > 600 && x < 900 && y > 2100 && y < 2850)
 				{
-					if(program->channel1 != TX)
+					if(program->channel4 != TX)
 					{
-						program->channel1 = RX;
+						program->channel4 = RX;
+						if (program->channel1 == RX)
+							program->channel1 = NO_SIGNAL;
 						if (program->channel2 == RX)
 							program->channel2 = NO_SIGNAL;
 						if (program->channel3 == RX)
 							program->channel3 = NO_SIGNAL;
-						if (program->channel4 == RX)
-							program->channel4 = NO_SIGNAL;
 
 						program->RX_used = true;	
 
