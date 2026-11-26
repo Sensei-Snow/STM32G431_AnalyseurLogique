@@ -3,7 +3,7 @@
  * @file 				program.c
  * @author 				Arthur Retaillaud
  * @creation_date 		15/11/2026
- * @update_date			22/11/2026
+ * @update_date			26/11/2026
  * @see					program.h
  * @brief				Implémentation des fonctionnalités liées au programme principal.
  *******************************************************************************
@@ -143,13 +143,15 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				INTERNAL_LED_set(false);
 
 				if (program->protocol == NO_PROTOCOL)
-				{
 					draw_home_screen_initial();
-				}
 				else if (program->channel1 == NO_SIGNAL || program->channel2 == NO_SIGNAL || program->channel3 == NO_SIGNAL || program->channel4 == NO_SIGNAL)
-				{
 					draw_home_screen_incomplete_settings();
-				}	
+				else if (program->protocol == UART && (program->RX_used == false || program->TX_used == false))
+					draw_home_screen_incomplete_settings();
+				else if (program->protocol == I2C && (program->SDA_used == false || program->SCL_used == false))
+					draw_home_screen_incomplete_settings();
+				else if (program->protocol == UART && (program->SCLK_used == false || program->MISO_used == false || program->MOSI_used == false || program->CS_used == false))
+					draw_home_screen_incomplete_settings();
 			}
 
 			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
@@ -248,16 +250,46 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				else if (x > 2200 && x < 2600 && y > 1350 && y < 2800)
 				{
 					program->protocol = UART;
+
+					program->RX_used = false;
+					program->TX_used = false;
+					program->SDA_used = false;
+					program->SCL_used = false;
+					program->SCLK_used = false;
+					program->MISO_used = false;
+					program->MOSI_used = false;
+					program->CS_used = false;
+
 					settings_screen_page1_set_uart();
 				}
 				else if (x > 1450 && x < 1900 && y > 1350 && y < 2800)
 				{
 					program->protocol = I2C;
+
+					program->RX_used = false;
+					program->TX_used = false;
+					program->SDA_used = false;
+					program->SCL_used = false;
+					program->SCLK_used = false;
+					program->MISO_used = false;
+					program->MOSI_used = false;
+					program->CS_used = false;
+
 					settings_screen_page1_set_i2c();
 				}
 				else if (x > 750 && x < 1150 && y > 1350 && y < 2800)
 				{
 					program->protocol = SPI;
+
+					program->RX_used = false;
+					program->TX_used = false;
+					program->SDA_used = false;
+					program->SCL_used = false;
+					program->SCLK_used = false;
+					program->MISO_used = false;
+					program->MOSI_used = false;
+					program->CS_used = false;
+
 					settings_screen_page1_set_spi();
 				}
 				else if (x > 1500 && x < 2000 && y > 300 && y < 600)
@@ -276,6 +308,180 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 					{
 						SM_SetState(&program->program_sm, STATE_SETTINGSSCREEN_PAGE2_SPI, now_ms);
 						INTERNAL_LED_set(true);
+					}
+				}
+			}
+
+			break;
+
+		case STATE_SETTINGSSCREEN_PAGE2_UART:
+			if (entered)
+			{
+				LOGS_info(MODULE_NAME, "First loop in STATE_SETTINGSSCREEN_PAGE2_UART");
+
+				INTERNAL_LED_set(false);
+
+				draw_settings_screen_page2_uart();
+
+				if (program->channel1 == RX)
+					settings_screen_page2_set_rx_visual(1);
+				else if (program->channel1 == TX)
+					settings_screen_page2_set_tx_visual(1);
+				if (program->channel2 == RX)
+					settings_screen_page2_set_rx_visual(2);
+				else if (program->channel2 == TX)
+					settings_screen_page2_set_tx_visual(2);
+				if (program->channel3 == RX)
+					settings_screen_page2_set_rx_visual(3);
+				else if (program->channel3 == TX)
+					settings_screen_page2_set_tx_visual(3);
+				if (program->channel4 == RX)
+					settings_screen_page2_set_rx_visual(4);
+				else if (program->channel4 == TX)
+					settings_screen_page2_set_tx_visual(4);
+			}
+
+			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
+			{
+				if (x > 3375 && x < 3500 && y > 3500 && y < 3800)
+				{
+					SM_SetState(&program->program_sm, STATE_HOMESCREEN_INITIAL, now_ms);
+					INTERNAL_LED_set(true);
+				}
+				else if (x > 2250 && x < 2530 && y > 2100 && y < 2850)
+				{
+					if(program->channel1 != TX)
+					{
+						program->channel1 = RX;
+						if (program->channel2 == RX)
+							program->channel2 = NO_SIGNAL;
+						if (program->channel3 == RX)
+							program->channel3 = NO_SIGNAL;
+						if (program->channel4 == RX)
+							program->channel4 = NO_SIGNAL;
+
+						program->RX_used = true;
+
+						settings_screen_page2_set_rx_visual(1);
+					}
+				}
+				else if (x > 2250 && x < 2530 && y > 950 && y < 1650)
+				{
+					if(program->channel1 != RX)
+					{
+						program->channel1 = TX;
+						if (program->channel2 == TX)
+							program->channel2 = NO_SIGNAL;
+						if (program->channel3 == TX)
+							program->channel3 = NO_SIGNAL;
+						if (program->channel4 == TX)
+							program->channel4 = NO_SIGNAL;
+
+						program->TX_used = true;	
+
+						settings_screen_page2_set_tx_visual(1);
+					}
+				}
+				else if (x > 1700 && x < 1950 && y > 2100 && y < 2850)
+				{
+					if(program->channel2 != TX)
+					{
+						program->channel2 = RX;
+						if (program->channel1 == RX)
+							program->channel1 = NO_SIGNAL;
+						if (program->channel3 == RX)
+							program->channel3 = NO_SIGNAL;
+						if (program->channel4 == RX)
+							program->channel4 = NO_SIGNAL;
+
+						program->RX_used = true;
+
+						settings_screen_page2_set_rx_visual(2);
+					}
+				}
+				else if (x > 1700 && x < 1950 && y > 950 && y < 1650)
+				{
+					if(program->channel2 != RX)
+					{
+						program->channel2 = TX;
+						if (program->channel1 == TX)
+							program->channel1 = NO_SIGNAL;
+						if (program->channel3 == TX)
+							program->channel3 = NO_SIGNAL;
+						if (program->channel4 == TX)
+							program->channel4 = NO_SIGNAL;
+
+						program->TX_used = true;	
+
+						settings_screen_page2_set_tx_visual(2);
+					}
+				}
+				else if (x > 1180 && x < 1350 && y > 2100 && y < 2850)
+				{
+					if(program->channel3 != TX)
+					{
+						program->channel3 = RX;
+						if (program->channel1 == RX)
+							program->channel1 = NO_SIGNAL;
+						if (program->channel2 == RX)
+							program->channel2 = NO_SIGNAL;
+						if (program->channel4 == RX)
+							program->channel4 = NO_SIGNAL;
+
+						program->RX_used = true;	
+
+						settings_screen_page2_set_rx_visual(3);
+					}
+				}
+				else if (x > 1180 && x < 1350 && y > 950 && y < 1650)
+				{
+					if(program->channel3 != RX)
+					{
+						program->channel3 = TX;
+						if (program->channel1 == TX)
+							program->channel1 = NO_SIGNAL;
+						if (program->channel2 == TX)
+							program->channel2 = NO_SIGNAL;
+						if (program->channel4 == TX)
+							program->channel4 = NO_SIGNAL;
+
+						program->TX_used = true;	
+
+						settings_screen_page2_set_tx_visual(3);
+					}
+				}
+				else if (x > 600 && x < 900 && y > 2100 && y < 2850)
+				{
+					if(program->channel1 != TX)
+					{
+						program->channel1 = RX;
+						if (program->channel2 == RX)
+							program->channel2 = NO_SIGNAL;
+						if (program->channel3 == RX)
+							program->channel3 = NO_SIGNAL;
+						if (program->channel4 == RX)
+							program->channel4 = NO_SIGNAL;
+
+						program->RX_used = true;	
+
+						settings_screen_page2_set_rx_visual(4);
+					}
+				}
+				else if (x > 600 && x < 900 && y > 950 && y < 1650)
+				{
+					if(program->channel4 != RX)
+					{
+						program->channel4 = TX;
+						if (program->channel1 == TX)
+							program->channel1 = NO_SIGNAL;
+						if (program->channel2 == TX)
+							program->channel2 = NO_SIGNAL;
+						if (program->channel3 == TX)
+							program->channel3 = NO_SIGNAL;
+
+						program->TX_used = true;	
+
+						settings_screen_page2_set_tx_visual(4);
 					}
 				}
 			}

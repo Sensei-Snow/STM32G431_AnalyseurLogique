@@ -3,7 +3,7 @@
  * @file 				program.h
  * @author 				Arthur Retaillaud
  * @creation_date 		15/11/2026
- * @update_date			23/11/2026
+ * @update_date			26/11/2026
  * @see					program.c
  * @brief				Fichier d'en-tête pour l'implémentation des fonctionnalités liées au programme principal.
  *******************************************************************************
@@ -51,7 +51,14 @@ typedef struct
     All_Signal channel2;
     All_Signal channel3;
     All_Signal channel4;
-
+    bool RX_used;
+    bool TX_used;
+    bool SDA_used;
+    bool SCL_used;
+    bool SCLK_used;
+    bool MISO_used;
+    bool MOSI_used;
+    bool CS_used;
 } Program_t;
 
 /* *********************************************** Public functions declarations ***************************************** */

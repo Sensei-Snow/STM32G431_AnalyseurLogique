@@ -165,3 +165,107 @@ void draw_settings_screen_page2_uart(void)
 		ILI9341_PutCentered(226, y + 4, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
 	}
 }
+
+void settings_screen_page2_set_rx_visual(uint8_t channel_rx)
+{
+	if (channel_rx == 1)
+	{
+		ILI9341_putImage_monochrome_v2(97, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
+		ILI9341_putImage_monochrome_v2(97, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(97, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(97, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+
+		ILI9341_PutCentered(130, 95, "RX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
+		ILI9341_PutCentered(130, 131, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(130, 167, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(130, 203, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+	}
+	else if (channel_rx == 2)
+	{
+		ILI9341_putImage_monochrome_v2(97, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(97, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
+		ILI9341_putImage_monochrome_v2(97, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(97, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+
+		ILI9341_PutCentered(130, 95, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(130, 131, "RX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
+		ILI9341_PutCentered(130, 167, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(130, 203, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+	}
+	else if (channel_rx == 3)
+	{
+		ILI9341_putImage_monochrome_v2(97, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(97, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(97, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
+		ILI9341_putImage_monochrome_v2(97, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		
+		ILI9341_PutCentered(130, 95, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(130, 131, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(130, 167, "RX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
+		ILI9341_PutCentered(130, 203, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+	}
+	else if (channel_rx == 4)
+	{
+		ILI9341_putImage_monochrome_v2(97, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(97, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(97, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(97, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
+		
+		ILI9341_PutCentered(130, 95, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(130, 131, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(130, 167, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(130, 203, "RX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
+	}
+}
+
+void settings_screen_page2_set_tx_visual(uint8_t channel_tx)
+{
+	if (channel_tx == 1)
+	{
+		ILI9341_putImage_monochrome_v2(193, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
+		ILI9341_putImage_monochrome_v2(193, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(193, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(193, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+
+		ILI9341_PutCentered(226, 95, "TX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
+		ILI9341_PutCentered(226, 131, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(226, 167, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(226, 203, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+	}
+	else if (channel_tx == 2)
+	{
+		ILI9341_putImage_monochrome_v2(193, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(193, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
+		ILI9341_putImage_monochrome_v2(193, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(193, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+
+		ILI9341_PutCentered(226, 95, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(226, 131, "TX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
+		ILI9341_PutCentered(226, 167, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(226, 203, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+	}
+	else if (channel_tx == 3)
+	{
+		ILI9341_putImage_monochrome_v2(193, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(193, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(193, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
+		ILI9341_putImage_monochrome_v2(193, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+
+		ILI9341_PutCentered(226, 95, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(226, 131, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(226, 167, "TX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
+		ILI9341_PutCentered(226, 203, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+	}
+	else if (channel_tx == 4)
+	{
+		ILI9341_putImage_monochrome_v2(193, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(193, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(193, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+		ILI9341_putImage_monochrome_v2(193, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
+
+		ILI9341_PutCentered(226, 95, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(226, 131, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(226, 167, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
+		ILI9341_PutCentered(226, 203, "TX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
+	}
+}
