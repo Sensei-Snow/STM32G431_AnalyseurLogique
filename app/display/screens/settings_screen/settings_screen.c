@@ -74,49 +74,52 @@ void draw_settings_screen_page1(void)
 	ILI9341_PutCentered(160, 185, "SPI", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
 }
 
-void settings_screen_page1_set_uart(void)
+void settings_screen_page1_set_uart_visual(void)
 {
 	LOGS_info(MODULE_NAME, "Setting UART as the selected protocol");
 
-	// Cadres des trois boutons
-	ILI9341_putImage_monochrome_v2(95, 80, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLUE2);
-	ILI9341_putImage_monochrome_v2(95, 128, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
-	ILI9341_putImage_monochrome_v2(96, 176, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
+	const uint16_t y_positions[3] = {80, 128, 176};
+	char *text_button[3] = {"UART", "I2C", "SPI"};
 
-	// Libellés
-	ILI9341_PutCentered(160, 89, "UART", &Font_11x18, ILI9341_COLOR_BLUE2, COLOR_PANEL);
-	ILI9341_PutCentered(160, 137, "I2C", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
-	ILI9341_PutCentered(160, 185, "SPI", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
+	for (uint8_t i = 0; i < 3; i++)
+	{
+		uint16_t color =  (i == 0) ? ILI9341_COLOR_BLUE2 : ILI9341_COLOR_BLACK;
+
+		ILI9341_putImage_monochrome_v2(95, y_positions[i], 130, 36, image_frame_settingsscreen_page1, color);
+		ILI9341_PutCentered(160, y_positions[i] + 9, text_button[i], &Font_11x18, color, COLOR_PANEL);
+	}
 }
 
-void settings_screen_page1_set_i2c(void)
+void settings_screen_page1_set_i2c_visual(void)
 {
 	LOGS_info(MODULE_NAME, "Setting I2C as the selected protocol");
 
-	// Cadres des trois boutons
-	ILI9341_putImage_monochrome_v2(95, 80, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
-	ILI9341_putImage_monochrome_v2(95, 128, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLUE2);
-	ILI9341_putImage_monochrome_v2(96, 176, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
+	const uint16_t y_positions[3] = {80, 128, 176};
+	char *text_button[3] = {"UART", "I2C", "SPI"};
 
-	// Libellés
-	ILI9341_PutCentered(160, 89, "UART", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
-	ILI9341_PutCentered(160, 137, "I2C", &Font_11x18, ILI9341_COLOR_BLUE2, COLOR_PANEL);
-	ILI9341_PutCentered(160, 185, "SPI", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
+	for (uint8_t i = 0; i < 3; i++)
+	{
+		uint16_t color =  (i == 1) ? ILI9341_COLOR_BLUE2 : ILI9341_COLOR_BLACK;
+
+		ILI9341_putImage_monochrome_v2(95, y_positions[i], 130, 36, image_frame_settingsscreen_page1, color);
+		ILI9341_PutCentered(160, y_positions[i] + 9, text_button[i], &Font_11x18, color, COLOR_PANEL);
+	}
 }
 
-void settings_screen_page1_set_spi(void)
+void settings_screen_page1_set_spi_visual(void)
 {
 	LOGS_info(MODULE_NAME, "Setting SPI as the selected protocol");
-	
-	// Cadres des trois boutons
-	ILI9341_putImage_monochrome_v2(95, 80, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
-	ILI9341_putImage_monochrome_v2(95, 128, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLACK);
-	ILI9341_putImage_monochrome_v2(96, 176, 130, 36, image_frame_settingsscreen_page1, ILI9341_COLOR_BLUE2);
 
-	// Libellés
-	ILI9341_PutCentered(160, 89, "UART", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
-	ILI9341_PutCentered(160, 137, "I2C", &Font_11x18, ILI9341_COLOR_BLACK, COLOR_PANEL);
-	ILI9341_PutCentered(160, 185, "SPI", &Font_11x18, ILI9341_COLOR_BLUE2, COLOR_PANEL);
+	const uint16_t y_positions[3] = {80, 128, 176};
+	char *text_button[3] = {"UART", "I2C", "SPI"};
+
+	for (uint8_t i = 0; i < 3; i++)
+	{
+		uint16_t color =  (i == 2) ? ILI9341_COLOR_BLUE2 : ILI9341_COLOR_BLACK;
+
+		ILI9341_putImage_monochrome_v2(95, y_positions[i], 130, 36, image_frame_settingsscreen_page1, color);
+		ILI9341_PutCentered(160, y_positions[i] + 9, text_button[i], &Font_11x18, color, COLOR_PANEL);
+	}
 }
 
 void draw_settings_screen_page2_uart(void)
@@ -168,104 +171,34 @@ void draw_settings_screen_page2_uart(void)
 
 void settings_screen_page2_set_rx_visual(uint8_t channel_rx)
 {
-	if (channel_rx == 1)
-	{
-		ILI9341_putImage_monochrome_v2(97, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
-		ILI9341_putImage_monochrome_v2(97, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(97, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(97, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+    if (channel_rx < 1 || channel_rx > 4)
+        return;
 
-		ILI9341_PutCentered(130, 95, "RX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
-		ILI9341_PutCentered(130, 131, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(130, 167, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(130, 203, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-	}
-	else if (channel_rx == 2)
-	{
-		ILI9341_putImage_monochrome_v2(97, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(97, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
-		ILI9341_putImage_monochrome_v2(97, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(97, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+    const uint16_t y_positions[4] = {91, 127, 163, 199};
 
-		ILI9341_PutCentered(130, 95, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(130, 131, "RX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
-		ILI9341_PutCentered(130, 167, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(130, 203, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-	}
-	else if (channel_rx == 3)
-	{
-		ILI9341_putImage_monochrome_v2(97, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(97, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(97, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
-		ILI9341_putImage_monochrome_v2(97, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		
-		ILI9341_PutCentered(130, 95, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(130, 131, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(130, 167, "RX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
-		ILI9341_PutCentered(130, 203, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-	}
-	else if (channel_rx == 4)
-	{
-		ILI9341_putImage_monochrome_v2(97, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(97, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(97, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(97, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
-		
-		ILI9341_PutCentered(130, 95, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(130, 131, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(130, 167, "RX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(130, 203, "RX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
-	}
+    for (uint8_t i = 0; i < 4; i++)
+    {
+        uint16_t color = (channel_rx == i + 1) ? ILI9341_COLOR_BLUE2 : ILI9341_COLOR_BLACK;
+
+        ILI9341_putImage_monochrome_v2(97, y_positions[i], 65, 18, image_frame_settingsscreen_page2, color);
+
+        ILI9341_PutCentered(130, y_positions[i] + 4, "RX", &Font_7x10, color, COLOR_PANEL);
+    }
 }
 
 void settings_screen_page2_set_tx_visual(uint8_t channel_tx)
 {
-	if (channel_tx == 1)
-	{
-		ILI9341_putImage_monochrome_v2(193, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
-		ILI9341_putImage_monochrome_v2(193, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(193, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(193, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+    if (channel_tx < 1 || channel_tx > 4)
+        return;
 
-		ILI9341_PutCentered(226, 95, "TX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
-		ILI9341_PutCentered(226, 131, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(226, 167, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(226, 203, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-	}
-	else if (channel_tx == 2)
-	{
-		ILI9341_putImage_monochrome_v2(193, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(193, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
-		ILI9341_putImage_monochrome_v2(193, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(193, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+    const uint16_t y_positions[4] = {91, 127, 163, 199};
 
-		ILI9341_PutCentered(226, 95, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(226, 131, "TX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
-		ILI9341_PutCentered(226, 167, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(226, 203, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-	}
-	else if (channel_tx == 3)
-	{
-		ILI9341_putImage_monochrome_v2(193, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(193, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(193, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
-		ILI9341_putImage_monochrome_v2(193, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
+    for (uint8_t i = 0; i < 4; i++)
+    {
+        uint16_t color = (channel_tx == i + 1) ? ILI9341_COLOR_BLUE2 : ILI9341_COLOR_BLACK;
 
-		ILI9341_PutCentered(226, 95, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(226, 131, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(226, 167, "TX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
-		ILI9341_PutCentered(226, 203, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-	}
-	else if (channel_tx == 4)
-	{
-		ILI9341_putImage_monochrome_v2(193, 91, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(193, 127, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(193, 163, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLACK);
-		ILI9341_putImage_monochrome_v2(193, 199, 65, 18, image_frame_settingsscreen_page2, ILI9341_COLOR_BLUE2);
+        ILI9341_putImage_monochrome_v2(193, y_positions[i], 65, 18, image_frame_settingsscreen_page2, color);
 
-		ILI9341_PutCentered(226, 95, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(226, 131, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(226, 167, "TX", &Font_7x10, ILI9341_COLOR_BLACK, COLOR_PANEL);
-		ILI9341_PutCentered(226, 203, "TX", &Font_7x10, ILI9341_COLOR_BLUE2, COLOR_PANEL);
-	}
+        ILI9341_PutCentered(226, y_positions[i] + 4, "TX", &Font_7x10, color, COLOR_PANEL);
+    }
 }

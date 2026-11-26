@@ -228,15 +228,15 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 
 				if (program->protocol == UART)
 				{
-					settings_screen_page1_set_uart();
+					settings_screen_page1_set_uart_visual();
 				}
 				else if (program->protocol == I2C)
 				{
-					settings_screen_page1_set_i2c();
+					settings_screen_page1_set_i2c_visual();
 				}
 				else if (program->protocol == SPI)
 				{
-					settings_screen_page1_set_spi();
+					settings_screen_page1_set_spi_visual();
 				}
 			}
 
@@ -260,7 +260,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 					program->MOSI_used = false;
 					program->CS_used = false;
 
-					settings_screen_page1_set_uart();
+					settings_screen_page1_set_uart_visual();
 				}
 				else if (x > 1450 && x < 1900 && y > 1350 && y < 2800)
 				{
@@ -275,7 +275,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 					program->MOSI_used = false;
 					program->CS_used = false;
 
-					settings_screen_page1_set_i2c();
+					settings_screen_page1_set_i2c_visual();
 				}
 				else if (x > 750 && x < 1150 && y > 1350 && y < 2800)
 				{
@@ -290,7 +290,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 					program->MOSI_used = false;
 					program->CS_used = false;
 
-					settings_screen_page1_set_spi();
+					settings_screen_page1_set_spi_visual();
 				}
 				else if (x > 1500 && x < 2000 && y > 300 && y < 600)
 				{
