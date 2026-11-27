@@ -34,7 +34,19 @@
 /* ************************************************ Private type definition ********************************************** */
 
 /* ********************************************* Private functions declarations ****************************************** */
+/**
+ * @brief		Réinitialisation de la structure du programme pour les voies et l'usage des sigaux
+ * @param		program : Pointeur vers la structure du programme
+ */
 void reset_program(Program_t *program);
+
+/**
+ * @brief		Définis le signal d'une voie et supprime ce signal des autres voies pour le protocole UART
+ * @param		program : Pointeur vers la structure du programme
+ * @param		channel : Numéro de la voie (1 à 4)
+ * @param		signal : Signal à affecter à la voie (RX ou TX)
+ */
+void set_channel_uart(Program_t *program, int channel, int signal);
 
 /* ************************************************** Private variables ************************************************** */
 
@@ -54,6 +66,32 @@ void reset_program(Program_t *program)
 	program->MISO_used = false;
 	program->MOSI_used = false;
 	program->CS_used = false;
+}
+
+void set_channel_uart(Program_t *program, int channel, int signal)
+{
+    All_Signal *channels[] = {
+        &program->channel1,
+        &program->channel2,
+        &program->channel3,
+        &program->channel4
+    };
+
+    // Affecte le signal au canal choisi
+    *channels[channel - 1] = signal;
+
+    // Supprime ce signal des autres canaux
+    for (int i = 0; i < 4; i++)
+    {
+        if (i != channel - 1 && *channels[i] == signal)
+            *channels[i] = NO_SIGNAL;
+    }
+
+    // Met à jour le statut correspondant
+    if (signal == RX)
+        program->RX_used = true;
+    else if (signal == TX)
+        program->TX_used = true;
 }
 
 /* ********************************************** Public functions definitions ******************************************* */
@@ -347,16 +385,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					if(program->channel1 != TX)
 					{
-						program->channel1 = RX;
-						if (program->channel2 == RX)
-							program->channel2 = NO_SIGNAL;
-						if (program->channel3 == RX)
-							program->channel3 = NO_SIGNAL;
-						if (program->channel4 == RX)
-							program->channel4 = NO_SIGNAL;
-
-						program->RX_used = true;
-
+						set_channel_uart(program, 1, RX);
 						settings_screen_page2_set_rx_visual(1);
 					}
 				}
@@ -364,16 +393,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					if(program->channel1 != RX)
 					{
-						program->channel1 = TX;
-						if (program->channel2 == TX)
-							program->channel2 = NO_SIGNAL;
-						if (program->channel3 == TX)
-							program->channel3 = NO_SIGNAL;
-						if (program->channel4 == TX)
-							program->channel4 = NO_SIGNAL;
-
-						program->TX_used = true;	
-
+						set_channel_uart(program, 1, TX);	
 						settings_screen_page2_set_tx_visual(1);
 					}
 				}
@@ -381,16 +401,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					if(program->channel2 != TX)
 					{
-						program->channel2 = RX;
-						if (program->channel1 == RX)
-							program->channel1 = NO_SIGNAL;
-						if (program->channel3 == RX)
-							program->channel3 = NO_SIGNAL;
-						if (program->channel4 == RX)
-							program->channel4 = NO_SIGNAL;
-
-						program->RX_used = true;
-
+						set_channel_uart(program, 2, RX);
 						settings_screen_page2_set_rx_visual(2);
 					}
 				}
@@ -398,16 +409,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					if(program->channel2 != RX)
 					{
-						program->channel2 = TX;
-						if (program->channel1 == TX)
-							program->channel1 = NO_SIGNAL;
-						if (program->channel3 == TX)
-							program->channel3 = NO_SIGNAL;
-						if (program->channel4 == TX)
-							program->channel4 = NO_SIGNAL;
-
-						program->TX_used = true;	
-
+						set_channel_uart(program, 2, TX);	
 						settings_screen_page2_set_tx_visual(2);
 					}
 				}
@@ -415,16 +417,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					if(program->channel3 != TX)
 					{
-						program->channel3 = RX;
-						if (program->channel1 == RX)
-							program->channel1 = NO_SIGNAL;
-						if (program->channel2 == RX)
-							program->channel2 = NO_SIGNAL;
-						if (program->channel4 == RX)
-							program->channel4 = NO_SIGNAL;
-
-						program->RX_used = true;	
-
+						set_channel_uart(program, 3, RX);	
 						settings_screen_page2_set_rx_visual(3);
 					}
 				}
@@ -432,16 +425,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					if(program->channel3 != RX)
 					{
-						program->channel3 = TX;
-						if (program->channel1 == TX)
-							program->channel1 = NO_SIGNAL;
-						if (program->channel2 == TX)
-							program->channel2 = NO_SIGNAL;
-						if (program->channel4 == TX)
-							program->channel4 = NO_SIGNAL;
-
-						program->TX_used = true;	
-
+						set_channel_uart(program, 3, TX);	
 						settings_screen_page2_set_tx_visual(3);
 					}
 				}
@@ -449,16 +433,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					if(program->channel4 != TX)
 					{
-						program->channel4 = RX;
-						if (program->channel1 == RX)
-							program->channel1 = NO_SIGNAL;
-						if (program->channel2 == RX)
-							program->channel2 = NO_SIGNAL;
-						if (program->channel3 == RX)
-							program->channel3 = NO_SIGNAL;
-
-						program->RX_used = true;	
-
+						set_channel_uart(program, 4, RX);	
 						settings_screen_page2_set_rx_visual(4);
 					}
 				}
@@ -466,16 +441,7 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				{
 					if(program->channel4 != RX)
 					{
-						program->channel4 = TX;
-						if (program->channel1 == TX)
-							program->channel1 = NO_SIGNAL;
-						if (program->channel2 == TX)
-							program->channel2 = NO_SIGNAL;
-						if (program->channel3 == TX)
-							program->channel3 = NO_SIGNAL;
-
-						program->TX_used = true;	
-
+						set_channel_uart(program, 4, TX);
 						settings_screen_page2_set_tx_visual(4);
 					}
 				}
