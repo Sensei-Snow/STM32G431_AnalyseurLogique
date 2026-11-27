@@ -44,6 +44,14 @@ void settings_screen_page1_set_spi_visual(void);
  */
 void draw_settings_screen_page2_uart(void);
 
+/**
+ * @brief		Définis visuellement le canal comme RX sur la page 2 de l'écran de paramètres
+ * @param       channel_rx	: Numéro du canal à définir comme RX (1 à 4)
+ */
 void settings_screen_page2_set_rx_visual(uint8_t channel_rx);
 
+/**
+ * @brief		Définis visuellement le canal comme TX sur la page 2 de l'écran de paramètres
+ * @param       channel_tx	: Numéro du canal à définir comme TX (1 à 4)
+ */
 void settings_screen_page2_set_tx_visual(uint8_t channel_tx);

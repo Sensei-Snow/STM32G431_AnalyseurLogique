@@ -171,6 +171,10 @@ void draw_settings_screen_page2_uart(void)
 
 void settings_screen_page2_set_rx_visual(uint8_t channel_rx)
 {
+	char buffer_textlog_rx[50];
+	snprintf(buffer_textlog_rx, sizeof(buffer_textlog_rx), "Setting channel %d as RX", channel_rx);
+	LOGS_info(MODULE_NAME, buffer_textlog_rx);
+
     if (channel_rx < 1 || channel_rx > 4)
         return;
 
@@ -180,14 +184,20 @@ void settings_screen_page2_set_rx_visual(uint8_t channel_rx)
     {
         uint16_t color = (channel_rx == i + 1) ? ILI9341_COLOR_BLUE2 : ILI9341_COLOR_BLACK;
 
+		// Cadres RX
         ILI9341_putImage_monochrome_v2(97, y_positions[i], 65, 18, image_frame_settingsscreen_page2, color);
 
+		// Libellés centrés dans leurs cadres
         ILI9341_PutCentered(130, y_positions[i] + 4, "RX", &Font_7x10, color, COLOR_PANEL);
     }
 }
 
 void settings_screen_page2_set_tx_visual(uint8_t channel_tx)
 {
+	char buffer_textlog_tx[50];
+	snprintf(buffer_textlog_tx, sizeof(buffer_textlog_tx), "Setting channel %d as TX", channel_tx);
+	LOGS_info(MODULE_NAME, buffer_textlog_tx);
+
     if (channel_tx < 1 || channel_tx > 4)
         return;
 
@@ -197,8 +207,10 @@ void settings_screen_page2_set_tx_visual(uint8_t channel_tx)
     {
         uint16_t color = (channel_tx == i + 1) ? ILI9341_COLOR_BLUE2 : ILI9341_COLOR_BLACK;
 
+		// Cadres TX
         ILI9341_putImage_monochrome_v2(193, y_positions[i], 65, 18, image_frame_settingsscreen_page2, color);
 
+		// Libellés centrés dans leurs cadres
         ILI9341_PutCentered(226, y_positions[i] + 4, "TX", &Font_7x10, color, COLOR_PANEL);
     }
 }
