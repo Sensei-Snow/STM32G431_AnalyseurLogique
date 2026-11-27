@@ -246,17 +246,11 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				draw_settings_screen_page1();
 
 				if (program->protocol == UART)
-				{
 					settings_screen_page1_set_uart_visual();
-				}
 				else if (program->protocol == I2C)
-				{
 					settings_screen_page1_set_i2c_visual();
-				}
 				else if (program->protocol == SPI)
-				{
 					settings_screen_page1_set_spi_visual();
-				}
 			}
 
 			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
@@ -322,40 +316,24 @@ Execution_State Program_Update(Program_t *program, uint32_t now_ms)
 				draw_settings_screen_page2_uart();
 
 				if (program->channel1 == RX)
-				{
 					settings_screen_page2_set_rx_visual(1);
-				}
 				else if (program->channel1 == TX)
-				{
 					settings_screen_page2_set_tx_visual(1);
-				}
 
 				if (program->channel2 == RX)
-				{
 					settings_screen_page2_set_rx_visual(2);
-				}
 				else if (program->channel2 == TX)
-				{
 					settings_screen_page2_set_tx_visual(2);
-				}
 
 				if (program->channel3 == RX)
-				{
 					settings_screen_page2_set_rx_visual(3);
-				}
 				else if (program->channel3 == TX)
-				{
 					settings_screen_page2_set_tx_visual(3);
-				}
 
 				if (program->channel4 == RX)
-				{
 					settings_screen_page2_set_rx_visual(4);
-				}
 				else if (program->channel4 == TX)
-				{
 					settings_screen_page2_set_tx_visual(4);
-				}
 			}
 
 			if (XPT2046_getCoordinates(&x, &y, XPT2046_COORDINATE_RAW))
