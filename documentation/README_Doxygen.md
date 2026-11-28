@@ -93,6 +93,10 @@ STM32G431_AnalyseurLogique/
 Les idées, remarques et suggestions sont les bienvenues ! N'hésitez pas à ouvrir une **issue** ! Les **pull request** ne sont pas acceptées pour le moment.
 <br>GitHub issues : https://github.com/Sensei-Snow/STM32G431_AnalyseurLogique/issues
 
+## 🤖 Utilisation de l'intelligence artificielle
+
+L'intelligence artificielle a été utilisée comme assistant de programmation sur certaines tâches de ce projet. Plus d'informations disponibles dans le fichier [IA.md](IA.md)
+
 ## 📄 Licence
 
 Ce projet est distribué sous licence MIT.

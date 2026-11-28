@@ -92,6 +92,10 @@ STM32G431_AnalyseurLogique/
 
 Les idées, remarques et suggestions sont les bienvenues ! N'hésitez pas à ouvrir une **issue** ! Les **pull request** ne sont pas acceptées pour le moment.
 
+## 🤖 Utilisation de l'intelligence artificielle
+
+L'intelligence artificielle a été utilisée comme assistant de programmation sur certaines tâches de ce projet. Plus d'informations disponibles dans le fichier [IA.md](IA.md)
+
 ## 📃 Documentation
 
 La documentation complète du projet a été générée avec Doxygen et est disponible à cette adresse : https://sensei-snow.github.io/STM32G431_AnalyseurLogique/
